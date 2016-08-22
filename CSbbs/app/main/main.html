@@ -1,0 +1,29 @@
+<div class="col-sm-10 articles">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>header</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="topic in topics" ng-class-odd="'odd'" ng-class-even="'even'">
+				<td><img src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}">{{topic.title}}</a><small class="floatRight">{{topic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="col-sm-2">
+	<div class="col-sm-12 col-sm-offset-0 personalInfo">
+		<div ng-hide="authed">
+			<p style="color: #faa">CSbbs:计科人的社区</p>
+			<br>
+			<p>您可以选择<a href="#/login">登录</a>或<a href="#/register">注册</a>.
+		</div>
+		<div ng-show="authed">
+			<p>个人信息:</p>
+			<img src="{{user_image_url}}" ng-show="showImage" width="40" height="40">{{current_user}}
+			<p>“这家伙很懒，什么个性签名也没留下”</p>
+			<a href="#/postTopic"><button class="btn btn-warning postTopicBtn">发布话题</button></a>
+		</div>
+	</div>
+</div>
