@@ -306,7 +306,7 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
     			//console.log(res.topic.comment);
     			$scope.gottenComments = res.topic.comment;
     			$scope.commentCounts = res.topic.comment.length;
-    			for(var i = 0 ; i < $scope.topic.comment.length; i++){
+    			/*for(var i = 0 ; i < $scope.topic.comment.length; i++){
 			    	$scope.gottenComments[i].showit = false;
 			    	if($scope.gottenComments[i].commentAt == '' || $scope.gottenComments[i].commentAt === undefined){
 			    		$scope.gottenComments[i].atUser = false;
@@ -314,7 +314,7 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
 			    	else {
 			    		$scope.gottenComments[i].atUser = true;
 			    	}
-			    }
+			    }*/
     			//$location.path('/showTopic');
     		}
     	});
@@ -357,7 +357,7 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
     	$http.post('/addReply', data).success(function(res){
     		$scope.gottenComments = res.topic.comment;
     		$scope.commentCounts = res.topic.comment.length;
-    		for(var i = 0 ; i < $scope.topic.comment.length; i++){
+    		/*for(var i = 0 ; i < $scope.topic.comment.length; i++){
 		    	$scope.gottenComments[i].showit = false;
 		    	if($scope.gottenComments[i].commentAt == '' || $scope.gottenComments[i].commentAt === undefined){
 		    		$scope.gottenComments[i].atUser = false;
@@ -365,7 +365,7 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
 		    	else {
 		    		$scope.gottenComments[i].atUser = true;
 		    	}
-		    }
+		    }*/
     		//$location.path('/showTopic');
     	});
     }
