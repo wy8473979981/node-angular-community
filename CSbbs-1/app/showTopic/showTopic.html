@@ -1,0 +1,58 @@
+<div class="col-sm-10 articles noPadding">
+	<div class="withPadding">
+		<button class="floatRight btn btn-success" ng-show="canEdit" ng-click="edit()">编辑</button>
+		<small class="floatRight" ng-show="canEdit">&nbsp;&nbsp;&nbsp;</small>
+		<button class="floatRight btn btn-success" ng-show="canEdit" ng-click="delete()">删除</button>
+		<h2 class="wordWrap">{{topic.title}}</h2>
+		<p>·作者：{{topic.user}}&nbsp;&nbsp;&nbsp;发布于：{{topic.date | date:"h:mma 'on' MMM d, y"}}</p>
+		<hr>
+		<div id="showTopicContent">
+			
+		</div>
+		<br>
+	</div>
+	<div class="mid"></div>
+	<div class="withPadding comments">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>{{commentCounts}}条回复</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="gottenComment in gottenComments" ng-class-odd="'odd'" ng-class-even="'odd'">
+					<td><img src="{{gottenComment.commentUserImage}}" width="30" height="30">&nbsp;<small>{{gottenComment.commentUser}}</small>&nbsp;•<small>{{gottenComment.commentDate | date:"h:mma 'on' MMM d, y"}}</small><small class="floatRight"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><span class="atUser" ng-show="gottenComment.atUser">@{{gottenComment.commentAt}}</span>&nbsp;{{gottenComment.commentInner}}</p>
+					<div class="commentInner" ng-show="gottenComment.showit">
+						<h5>添加回复</h5>
+						<hr class="addReply">
+						<textarea id="itBotherMe" rows="10" class="topic" ng-model="hehe.reply"></textarea>
+						<span class="text-warning">{{replyNotWritten}}</span>
+						<div class="form-group">
+				            <button type="submit" class="btn btn-primary" ng-click="replyCommenter(gottenComment)">回复</button>
+				      	</div>
+					</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="mid"></div>
+	<div class="withPadding forComment" ng-show="authed">
+		<!--<div class="addComment">添加回复</div>-->
+		<h5>添加回复</h5>
+		<hr class="addComment">
+		<textarea id="content" rows="10" class="topic" ng-model="comment"></textarea><span class="text-warning">{{commentNotWritten}}</span>
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-click="replyAuthor()">回复</button>
+      	</div>
+	</div>
+</div>
+<div class="col-sm-2">
+	<div class="col-sm-12 col-sm-offset-0 personalInfo">
+		<div>
+			<p>作者:</p>
+			<img src="{{topic.userImage}}" width="40" height="40">{{topic.user}}
+			<p>“这家伙很懒，什么个性签名也没留下”</p>
+		</div>
+	</div>
+</div>
