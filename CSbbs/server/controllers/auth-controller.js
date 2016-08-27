@@ -10,10 +10,11 @@ module.exports.register = function(req, res){
 			res.redirect('/auth/register/existedUser');
 		}
 		else {
-			var user = new User();
-			user.username = req.body.username;
-			user.password = req.body.password;
-			user.imageUrl = './app/images/coder.png';
+			var user = new User({
+				username: req.body.username;
+				password: req.body.password;
+				imageUrl: './app/images/coder.png';
+			});
 			user.save(function(err){
 				if(err){
 					console.log("There is an error while saving the user");
