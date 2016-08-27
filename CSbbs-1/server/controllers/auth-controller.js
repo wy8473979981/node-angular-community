@@ -28,7 +28,7 @@ module.exports.register = function(req, res){
 }
 
 module.exports.login = function(req, res){
-	User.findOne({'username': req.body.username}, function(err, user){
+	User.findOne({'username': req.body.username, 'password': req.body.password}, function(err, user){
 		if(err){
 			console.log("There is an error");
 			res.redirect('/auth/login');
