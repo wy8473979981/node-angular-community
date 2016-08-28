@@ -29,6 +29,12 @@ module.exports.modifyImage = function(req, res){
             	}
             	user.username = updatedUser.username;
             	user.password = updatedUser.password;
+            	if(updatedUser.sign == ''){
+            		user.sign = '这家伙很懒，什么个性签名也没留下'
+            	}
+            	else {
+            		user.sign = updatedUser.sign;
+            	}
             	Topic.find({'userImage': user.imageUrl}, function(err, topics){
             		//这句能打印出来
             		//console.log("hello worldT_T");
@@ -57,7 +63,7 @@ module.exports.modifyImage = function(req, res){
                         console.log("failed save");
                         res.json({status: 500});
                     } else {
-                        res.send({state: 'success', user: {username: user.username, imageUrl: user.imageUrl}});
+                        res.send({state: 'success', user: {username: user.username, imageUrl: user.imageUrl, sign: user.sign}});
                     }
                 })
             })

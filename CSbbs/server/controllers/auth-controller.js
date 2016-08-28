@@ -20,7 +20,7 @@ module.exports.register = function(req, res){
 					res.redirect('/auth/register');
 				}
 				else{
-					res.send({state: "success", user: {username: req.body.username, imageUrl: user.imageUrl}});
+					res.send({state: "success", user: {username: req.body.username, imageUrl: user.imageUrl, sign: user.sign}});
 				}
 			});
 		}
@@ -35,7 +35,7 @@ module.exports.login = function(req, res){
 		}
 		if(user){
 			req.session.user = user;
-			res.send({state: 'success', user: {username: req.body.username, imageUrl: user.imageUrl}});
+			res.send({state: 'success', user: {username: req.body.username, imageUrl: user.imageUrl, sign:user.sign}});
 		}
 		else {
 			console.log("Wrong username or password");

@@ -1,6 +1,7 @@
 var app = angular.module('CSbbs', ['ngRoute', 'ngFileUpload']).run(function($rootScope, $http){
 	$rootScope.authed = false;
 	$rootScope.current_user = "";
+	$rootScope.current_user_sign = "这家伙很懒，什么个性签名也没留下";
 	$rootScope.user_image_url = "";
 	$rootScope.showImage = false;
 	$rootScope.logout = function(){
@@ -48,6 +49,7 @@ app.controller('mainCtrl', function($scope, $http, $rootScope){
         $scope.user = JSON.parse(localStorage['User-Data']);
         console.log($scope.user);
         $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
@@ -84,6 +86,7 @@ app.controller('registerCtrl', function($scope, $http, $rootScope, $location){
 				if(res.state == "success"){
 					$rootScope.authed = true;
 					$rootScope.current_user = res.user.username;
+					$rootScope.current_user_sign = res.user.sign;
 					$rootScope.user_image_url = res.user.imageUrl;
 					$rootScope.showImage = true;
 					localStorage.setItem('User-Data', JSON.stringify(res.user));
@@ -113,6 +116,7 @@ app.controller('loginCtrl', function($scope, $http, $rootScope, $location){
 			if(res.state == "success"){
 				$rootScope.authed = true;
 				$rootScope.current_user = res.user.username;
+				$rootScope.current_user_sign = res.user.sign;
 				$rootScope.user_image_url = res.user.imageUrl;
 				$rootScope.showImage = true;
 				localStorage.setItem('User-Data', JSON.stringify(res.user));
@@ -153,6 +157,7 @@ app.controller('postTopicCtrl', function($scope, $http, $rootScope, $location){
         $scope.user = JSON.parse(localStorage['User-Data']);
         console.log($scope.user);
         $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
@@ -184,6 +189,7 @@ app.controller('postTopicCtrl', function($scope, $http, $rootScope, $location){
   			}
   			var data = {
 	  			user: $rootScope.current_user,
+	  			userSign: $rootScope.current_user_sign,
 	  			block: $scope.choosedBlock,
 	  			title: $scope.title,
 	  			content: $scope.content,
@@ -204,6 +210,7 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
         $scope.user = JSON.parse(localStorage['User-Data']);
         console.log($scope.user);
         $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
@@ -377,6 +384,7 @@ app.controller('modifyCtrl', function(Upload, $http, $scope, $rootScope, $locati
         $scope.user = JSON.parse(localStorage['User-Data']);
         console.log($scope.user);
         $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
@@ -386,7 +394,7 @@ app.controller('modifyCtrl', function(Upload, $http, $scope, $rootScope, $locati
     	$location.path('/');
     	//alert("请先登录");
     }
-    $scope.updatedUser = {username: '', password: ''}
+    $scope.updatedUser = {username: '', password: '', sign: ''}
     $scope.file = null;
 
     $scope.update = function(){
@@ -423,6 +431,7 @@ app.controller('editCtrl', function ($scope, $location, $http, $rootScope) {
         $scope.user = JSON.parse(localStorage['User-Data']);
         console.log($scope.user);
         $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;

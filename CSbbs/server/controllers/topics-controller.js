@@ -3,6 +3,8 @@ var User = require('../datasets/users');
 module.exports.postTopic = function(req, res){
 	var topic = new Topic();
 	topic.user = req.body.user;
+	//console.log(req.body.userSign);
+	topic.userSign = req.body.userSign;
 	console.log(req.body.user);
 	User.findOne({'username': req.body.user}, function(err, theUser){
 		if(err){}

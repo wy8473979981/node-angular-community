@@ -102,3 +102,12 @@ td {
 	text-decoration: underline;
 	cursor: pointer;
 }
+.bottom {
+	background-color: #fff;
+}
+/*.srcCode {
+	color: #000;
+}
+.srcCode:hover {
+	text-decoration: none;
+}*/

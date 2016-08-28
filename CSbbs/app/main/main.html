@@ -22,7 +22,7 @@
 		<div ng-show="authed">
 			<p>个人信息:</p>
 			<img src="{{user_image_url}}" ng-show="showImage" width="40" height="40">{{current_user}}
-			<p>“这家伙很懒，什么个性签名也没留下”</p>
+			<p>{{current_user_sign}}</p>
 			<a href="#/postTopic"><button class="btn btn-warning postTopicBtn">发布话题</button></a>
 			<br>
 		</div>
