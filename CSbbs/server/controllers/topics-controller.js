@@ -14,12 +14,16 @@ module.exports.postTopic = function(req, res){
 			topic.title = req.body.title;
 			topic.content = req.body.content;
 			topic.date = req.body.date;
-			topic.save(function(err){
+			topic.save(function(err, topic){
 				if(err){
 					console.log("There is an error while saving topic");
 					res.redirect('/topics/error');
 				}
 				else {
+					theUser.userPostTopic.push(topic._id);
+					theUser.save(function(err, user){
+						//console.log(user);
+					});
 					res.send({state: "success", topic: topic});
 				}
 			});
@@ -83,7 +87,59 @@ module.exports.delete = function(req, res){
 			res.json({status: 500});
 		}
 		else {
-			res.send({state: 'success'});
+			//在'用户发表的话题'中删除该话题
+			User.findOne({username: req.body.user}, function(err, user){
+				if(err){
+					res.json({status: 500});
+				}
+				else {
+					for(var i = 0; i < user.userPostTopic.length; i++){
+						if(user.userPostTopic[i] == topicId){
+							user.userPostTopic.splice(i, 1);
+						}
+					}
+					user.save(function(err){
+						if(err){
+							res.json({status: 500});
+						}
+						else{
+							//console.log(user);
+						}
+					});
+				}
+			});
+
+			//在'用户回复的话题'中删除该话题
+			User.find({}, function(err, users){
+				if(err){
+					res.json({status: 500});
+				}
+				else{
+					for(var i = 0; i < users.length; i++){
+						for(var j = 0; j < users[i].userReplyTopic.length; j++){
+							if(users[i].userReplyTopic[j] == topicId){
+								users[i].userReplyTopic.splice(j, 1);
+							}
+						}
+						console.log(users[i].userReplyTopic);
+						//错出在这
+						//这样写报错
+						/*users[i].save(function(err){
+							if(err){
+								console.log(err);
+								//res.json({status: 500});
+							}
+						});*/
+						//这样ok.......why?
+						User.findByIdAndUpdate(users[i]._id, {userReplyTopic: users[i].userReplyTopic}, function(err){
+							if(err){
+								res.json({status: 500});
+							}
+						});
+					}
+					res.send({state: 'success'});
+				}
+			});
 		}
 	});
 }
@@ -92,6 +148,17 @@ module.exports.addComment = function(req, res){
 	var topicId = req.body.topicId;
 	var theUser = req.body.commentUser;
 	User.findOne({username: req.body.commentUser}, function(err, user){
+		//若该用户之前没评论过这话题，则在userReplyTopic中添加该话题_id
+		var newReply = true;
+		for(var i = 0; i < user.userReplyTopic.length; i++){
+			if(user.userReplyTopic[i] == topicId){
+				newReply = false;
+			}
+		}
+		if(newReply){
+			user.userReplyTopic.push(topicId);
+		}
+		//user.userReplyTopic.push(topicId);
 		var newComment = {
 			commentInner: req.body.commentInner,
 			commentUser: req.body.commentUser,
@@ -109,6 +176,11 @@ module.exports.addComment = function(req, res){
 						res.json({status: 500});
 					}
 					else {
+						user.save(function(err){
+							if(err){
+								res.json({status: 500});
+							}
+						});
 						res.send({state: 'success', topic: topic});
 					}
 				});
@@ -125,6 +197,17 @@ module.exports.addReply = function(req, res){
 			res.json({status: 500});
 		}
 		else {
+			//若该用户之前没评论过这话题，则在userReplyTopic中添加该话题_id
+			var newReply = true;
+			for(var i = 0; i < user.userReplyTopic.length; i++){
+				if(user.userReplyTopic[i] == topicId){
+					newReply = false;
+				}
+			}
+			if(newReply){
+				user.userReplyTopic.push(topicId);
+			}
+			//user.userReplyTopic.push(topicId);
 			var newReply = {
 				commentInner: req.body.replyInner,
 				commentUser: req.body.replyUser,
@@ -143,6 +226,11 @@ module.exports.addReply = function(req, res){
 							res.json({status: 500});
 						}
 						else {
+							user.save(function(err){
+								if(err){
+									res.json({status: 500});
+								}
+							});
 							res.send({state: 'success', topic: topic});
 						}
 					});

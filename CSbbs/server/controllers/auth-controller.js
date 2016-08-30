@@ -42,4 +42,14 @@ module.exports.login = function(req, res){
 			res.redirect('/auth/login/userError');
 		}
 	});
+	/*果然是异步T_T
+	User.find({}, function(err, users){
+		for(var i = 0; i < 100000; i++){
+			var a = i % 25000;
+			if(a == 0){
+				console.log(i);
+			}
+		}
+	});
+	console.log('我会被插在中间吗?');*/
 }
