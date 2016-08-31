@@ -36,6 +36,7 @@ var mongoose = require('mongoose');
 var authController = require('./server/controllers/auth-controller.js');
 var topicsController = require('./server/controllers/topics-controller.js');
 var modifyController = require('./server/controllers/modify-controller.js');
+var userInfoController = require('./server/controllers/userInfo-controller.js');
 
 mongoose.connect('mongodb://localhost:27017/CSbbs');
 
@@ -136,6 +137,9 @@ app.post('/addComment', topicsController.addComment);
 
 //添加对评论的回复
 app.post('/addReply', topicsController.addReply);
+
+//查看用户信息页
+app.post('/userInfo', userInfoController.userInfo);
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));

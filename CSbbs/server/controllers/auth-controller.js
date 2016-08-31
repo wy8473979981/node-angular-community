@@ -13,6 +13,7 @@ module.exports.register = function(req, res){
 			var user = new User();
 			user.username = req.body.username;
 			user.password = req.body.password;
+			user.signDate = Date.now();
 			user.imageUrl = './app/images/coder.png';
 			user.save(function(err){
 				if(err){

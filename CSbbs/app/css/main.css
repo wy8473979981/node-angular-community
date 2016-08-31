@@ -105,6 +105,23 @@ td {
 .bottom {
 	background-color: #fff;
 }
+.userInfoH {
+	color: #80BD01;
+}
+.userInfoHr {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+.prCount {
+	color: #808d01;
+}
+.marginTB {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+/*br {
+	line-height: 1;
+}*/
 /*.srcCode {
 	color: #000;
 }

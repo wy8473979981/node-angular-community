@@ -40,6 +40,9 @@ app.config(function($routeProvider){
 	}).when('/edit', {
 		templateUrl: 'app/edit/edit.html',
 		controller: 'editCtrl'
+	}).when('/userInfo', {
+		templateUrl: 'app/userInfo/userInfo.html',
+		controller: 'userInfoCtrl'
 	});
 });
 
@@ -487,4 +490,33 @@ app.controller('editCtrl', function ($scope, $location, $http, $rootScope) {
 	  		});
   		}
 	}
+});
+
+//展示用户信息的控制器
+app.controller('userInfoCtrl', function ($scope, $rootScope, $location, $http, $routeParams){
+	if(localStorage['User-Data'] !== undefined){
+        $scope.user = JSON.parse(localStorage['User-Data']);
+        console.log($scope.user);
+        $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
+        $rootScope.authed = true;
+        $rootScope.showImage = true;
+        $rootScope.user_image_url = $scope.user.imageUrl;
+        console.log($scope.user.imageUrl);
+    }
+	
+	//console.log($routeParams.username);
+	var data = {
+		username: $routeParams.username
+	}
+	$http.post('/userInfo', data).success(function(res){
+		if(res.state == 'success'){
+			console.log(res);
+			$scope.theUser = res.user;
+			$scope.postTopics = res.postTopics;
+			$scope.postCount = $scope.postTopics.length;
+			$scope.replyTopics = res.replyTopics;
+			$scope.replyCount = $scope.replyTopics.length;
+		}
+	});
 });
