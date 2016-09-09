@@ -61,6 +61,18 @@ app.controller('mainCtrl', function($scope, $http, $rootScope){
 	$http.get('/topics').success(function(res){
 		if(res.state == 'success'){
 			$rootScope.topics = res.topics;
+
+			//无人回复的话题
+			$rootScope.noReplyTopics = [];
+			for(var i = 0; i < $rootScope.topics.length; i++){
+				if($rootScope.topics[i].comment.length == 0){
+					$rootScope.noReplyTopics.push($rootScope.topics[i]);
+					if($rootScope.noReplyTopics.length > 4){
+						break;
+					}
+				}
+			}
+
 		}
 	});
 });
@@ -70,7 +82,7 @@ app.controller('registerCtrl', function($scope, $http, $rootScope, $location){
 		$location.path('/');
 		return ;
 	}
-	$scope.user = {username: '', password: ''};
+	$scope.user = {username: '', password: '', userEmail: ''};
 	$scope.ensure = "";
 
 	$scope.register = function(){
@@ -220,6 +232,17 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
         console.log($scope.user.imageUrl);
     }
 
+    //无人回复的话题
+	$rootScope.noReplyTopics = [];
+	for(var i = 0; i < $rootScope.topics.length; i++){
+		if($rootScope.topics[i].comment.length == 0){
+			$rootScope.noReplyTopics.push($rootScope.topics[i]);
+			if($rootScope.noReplyTopics.length > 4){
+				break;
+			}
+		}
+	}
+
 	$scope.canEdit = false;
 
 	//$routeParams.topic是个字符串对象
@@ -227,6 +250,10 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
 	for(var i = 0; i < $rootScope.topics.length; i++){
 		if($rootScope.topics[i]._id == $routeParams.topicId){
 			$scope.topic = $rootScope.topics[i];
+			$scope.topic.pv += 1;
+
+			//pv加1
+			$http.post('/pvPlus', $scope.topic).success(function(res){});
 
 			//判断当前话题是否是自己发表的
 			if(localStorage['User-Data'] !== undefined && $rootScope.topics[i].user == JSON.parse(localStorage['User-Data']).username){
@@ -520,3 +547,7 @@ app.controller('userInfoCtrl', function ($scope, $rootScope, $location, $http, $
 		}
 	});
 });
+
+/*app.controller('mailAuthCtrl', function($scope, $http, $routeParams, $location) {
+	console.log($routeParams.code);
+});*/

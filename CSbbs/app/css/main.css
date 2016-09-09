@@ -1,6 +1,9 @@
 body {
 	background-color: #e1e1e1;
 }
+h5 {
+	font-size: 12px;
+}
 .navbar {
 	background-color: #444;
 }
@@ -119,12 +122,60 @@ td {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-/*br {
-	line-height: 1;
-}*/
+.topicBlock {
+	background-color: #033649;
+	text-align: center;
+	padding: 1px 2px 1px 2px;
+	color: #fff;
+	font-size: 14px;
+	/*
+	span是内联元素，忽略宽高
+	width: 25px;
+	height: 15px;
+	*/
+}
+.commentLength {
+	color: #033649;
+}
+.pv {
+	font-size: 14px;
+	color: #c8c8a9;
+}
+.modifyInfo {
+	color: #808d01;
+}
+.noStyle {
+	list-style: none;
+	padding-left: 0;
+}
+.friendlyLink {
+	width: 80%;
+	height: 50px;
+}
+.tips {
+	font-size: 12px;
+}
+.segmentfault {
+	color: #a0a0a0;
+}
+.segmentfault:hover {
+	color: #a0a0a0;
+}
+.noReplyTopic {
+	color: #a0a0a0;
+	font-size: 16px;
+}
+.noReplyTopic:hover {
+	color: #a0a0a0;
+}
 /*.srcCode {
+	font-size: 13px;
 	color: #000;
 }
 .srcCode:hover {
 	text-decoration: none;
+	color: #000;
+}
+.bottomP {
+	color: #b1b1b1;
 }*/

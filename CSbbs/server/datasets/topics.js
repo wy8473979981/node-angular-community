@@ -6,6 +6,7 @@ module.exports = mongoose.model('Topic', {
 	block: String,
 	title: String,
 	content: String,
+	pv: {type: Number, default: 0},
 	comment: [{
 		commentInner: String,
 		commentUser: String,

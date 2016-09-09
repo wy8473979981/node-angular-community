@@ -48,6 +48,22 @@ module.exports.getTopics = function(req, res){
 	});
 }
 
+module.exports.pvPlus = function(req, res){
+	Topic.findById(req.body._id, function(err, topic){
+		if(err){
+			res.json({status: 500});
+		}
+		else{
+			topic.pv += 1;
+			topic.save(function(err){
+				if(err){
+					res.json({status: 500});
+				}
+			});
+		}
+	});
+}
+
 module.exports.edit = function(req, res){
 	var topicId = req.body._id;
 	Topic.findById(topicId, function(err, topic){

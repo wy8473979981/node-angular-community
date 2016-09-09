@@ -46,7 +46,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="postTopic in postTopics" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img src="{{postTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{postTopic._id}}">{{postTopic.title}}</a><small class="floatRight">{{postTopic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
+					<td><img src="{{postTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{postTopic.comment.length}}</span>&nbsp;/<span class="pv">{{postTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{postTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{postTopic._id}}">{{postTopic.title}}</a><small class="floatRight">{{postTopic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
 				</tr>
 			</tbody>
 		</table>
@@ -62,8 +62,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="replyTopic in replyTopics" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img src="{{replyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{replyTopic._id}}">{{replyTopic.title}}</a><small class="floatRight">{{replyTopic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
+				<tr ng-repeat="replyTopic in replyTopics | orderBy: 'date':true" ng-class-odd="'odd'" ng-class-even="'even'">
+					<td><img src="{{replyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{replyTopic.comment.length}}</span>&nbsp;/<span class="pv">{{replyTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{replyTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{replyTopic._id}}">{{replyTopic.title}}</a><small class="floatRight">{{replyTopic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
 				</tr>
 			</tbody>
 		</table>
@@ -79,5 +79,19 @@
 			<!--<a href="#/postTopic"><button class="btn btn-warning postTopicBtn">发布话题</button></a>-->
 			<br>
 		</div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0">
+		<div class="mid"></div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0 personalInfo noPadding">
+		<h5>友情链接</h5>
+		<hr class="addComment">
+		<ul class="noStyle">
+			<li><a href="http://stackoverflow.com/" target="_blank"><img src="app/images/stackoverflow.jpg" alt="" class="friendlyLink"></a></li>
+			<li><a href="https://github.com/" target="_blank"><img src="app/images/github.jpg" alt="" class="friendlyLink"></a></li>
+			<li><a href="https://ruby-china.org/" target="_blank"><img src="app/images/rubychina.png" alt="" class="friendlyLink"></a></li>
+			<li><a href="http://www.csdn.net/" target="_blank"><img src="app/images/csdn.jpg" alt="" class="friendlyLink"></a></li>
+		</ul>
+		<br>
 	</div>
 </div>

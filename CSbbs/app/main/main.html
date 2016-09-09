@@ -7,7 +7,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="topic in topics" ng-class-odd="'odd'" ng-class-even="'even'">
-				<td><img src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}">{{topic.title}}</a><small class="floatRight">{{topic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
+				<td><img src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{topic.comment.length}}</span>&nbsp;/<span class="pv">{{topic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{topic.block}}</span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}">{{topic.title}}</a><small class="floatRight">{{topic.date | date:"h:mma 'on' MMM d, y"}}</small></td>
 			</tr>
 		</tbody>
 	</table>
@@ -28,5 +28,29 @@
 			<a href="#/postTopic"><button class="btn btn-warning postTopicBtn">发布话题</button></a>
 			<br>
 		</div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0">
+		<div class="mid"></div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0 personalInfo noPadding">
+		<h5>无人回复的问题</h5>
+		<hr class="addComment">
+		<ul class="noStyle">
+			<li ng-repeat="noReplyTopic in noReplyTopics"><a href="#/showTopic?topicId={{noReplyTopic._id}}" class="noReplyTopic">{{noReplyTopic.title}}</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0">
+		<div class="mid"></div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0 personalInfo noPadding">
+		<h5>友情链接</h5>
+		<hr class="addComment">
+		<ul class="noStyle">
+			<li><a href="http://stackoverflow.com/" target="_blank"><img src="app/images/stackoverflow.jpg" alt="" class="friendlyLink"></a></li>
+			<li><a href="https://github.com/" target="_blank"><img src="app/images/github.jpg" alt="" class="friendlyLink"></a></li>
+			<li><a href="https://ruby-china.org/" target="_blank"><img src="app/images/rubychina.png" alt="" class="friendlyLink"></a></li>
+			<li><a href="http://www.csdn.net/" target="_blank"><img src="app/images/csdn.jpg" alt="" class="friendlyLink"></a></li>
+		</ul>
+		<br>
 	</div>
 </div>

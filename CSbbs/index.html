@@ -34,9 +34,11 @@
 	        <li><a href="#">首页</a></li>
 	        <li ng-hide="authed"><a href="#/register">注册</a></li>
 	        <li ng-hide="authed"><a href="#/login">登录</a></li>
-	        <li ng-show="authed"><a href="#">logged in as {{current_user}}</a></li>
+	        <li><a href="#">关于我们</a></li>
+	        <li ng-show="authed"><a href="#">当前:{{current_user}}</a></li>
+	        <li ng-show="authed"><a href="#">未读消息</a></li>
 	        <li ng-show="authed"><a href="#/modify">用户</a></li>
-	        <li ng-show="authed"><a href="#" ng-click="logout()">log out</a></li>
+	        <li ng-show="authed"><a href="#" ng-click="logout()">登出</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -46,11 +48,14 @@
 		<div ng-view></div>
 	</div>
 	<br>
-	<!--<div class="bottom">
+	<!--
+	<div class="bottom">
 		<div class="container">
 			<br>
 			<a href="https://github.com/zpnaruto/node-angular-community" class="srcCode">源码地址</a>
+			<p class="bottomP">CSbbs是高校计算机专业学生交流学习的社区，也欢迎非计算机专业但是对此方向感兴趣的童鞋。</p>
 		</div>
-	</div>-->
+	</div>
+	-->
 </body>
 </html>

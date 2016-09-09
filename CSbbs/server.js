@@ -106,6 +106,8 @@ app.get('/auth/register/existedUser', function(req, res){
 });
 app.post('/auth/register', authController.register);
 
+//app.get('/mailAuth', authController.mailAuth);
+
 app.get('/auth/login', function(req, res){
 	res.send({state: 'failure', user: null, message: '服务器出错'});
 });
@@ -121,6 +123,8 @@ app.get('/topics/error', function(req, res){
 app.get('/topics', topicsController.getTopics);
 //发布话题
 app.post('/topics', topicsController.postTopic);
+
+app.post('/pvPlus', topicsController.pvPlus);
 
 app.post('/updateImage', multipartMiddleware, modifyController.modifyImage);
 

@@ -4,7 +4,7 @@
 		<small class="floatRight" ng-show="canEdit">&nbsp;&nbsp;&nbsp;</small>
 		<button class="floatRight btn btn-success" ng-show="canEdit" ng-click="delete()">删除</button>
 		<h2 class="wordWrap">{{topic.title}}</h2>
-		<p>·作者：{{topic.user}}&nbsp;&nbsp;&nbsp;发布于：{{topic.date | date:"h:mma 'on' MMM d, y"}}</p>
+		<p>•作者：{{topic.user}}&nbsp;&nbsp;&nbsp;&nbsp;•{{topic.pv}}次浏览&nbsp;&nbsp;&nbsp;&nbsp;•发布于：{{topic.date | date:"h:mma 'on' MMM d, y"}}</p>
 		<hr>
 		<div id="showTopicContent">
 			
@@ -21,7 +21,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="gottenComment in gottenComments" ng-class-odd="'odd'" ng-class-even="'odd'">
-					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small>{{gottenComment.commentUser}}</small>&nbsp;•<small>{{gottenComment.commentDate | date:"h:mma 'on' MMM d, y"}}</small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><span class="atUser" ng-show="gottenComment.atUser">@{{gottenComment.commentAt}}</span>&nbsp;{{gottenComment.commentInner}}</p>
+					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small>{{gottenComment.commentUser}}</small>&nbsp;•<small>{{gottenComment.commentDate | date:"h:mma 'on' MMM d, y"}}</small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{gottenComment.commentAt}}"><span class="atUser" ng-show="gottenComment.atUser">@{{gottenComment.commentAt}}</span></a>&nbsp;{{gottenComment.commentInner}}</p>
 					<div class="commentInner" ng-show="gottenComment.showit">
 						<h5>添加回复</h5>
 						<hr class="addReply">
@@ -55,5 +55,29 @@
 			<br><br>
 			<span>{{topic.userSign}}</span>
 		</div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0">
+		<div class="mid"></div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0 personalInfo noPadding">
+		<h5>无人回复的问题</h5>
+		<hr class="addComment">
+		<ul class="noStyle">
+			<li ng-repeat="noReplyTopic in noReplyTopics"><a href="#/showTopic?topicId={{noReplyTopic._id}}" class="noReplyTopic">{{noReplyTopic.title}}</a></li>
+		</ul>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0">
+		<div class="mid"></div>
+	</div>
+	<div class="col-sm-12 col-sm-offset-0 personalInfo noPadding">
+		<h5>友情链接</h5>
+		<hr class="addComment">
+		<ul class="noStyle">
+			<li><a href="http://stackoverflow.com/" target="_blank"><img src="app/images/stackoverflow.jpg" alt="" class="friendlyLink"></a></li>
+			<li><a href="https://github.com/" target="_blank"><img src="app/images/github.jpg" alt="" class="friendlyLink"></a></li>
+			<li><a href="https://ruby-china.org/" target="_blank"><img src="app/images/rubychina.png" alt="" class="friendlyLink"></a></li>
+			<li><a href="http://www.csdn.net/" target="_blank"><img src="app/images/csdn.jpg" alt="" class="friendlyLink"></a></li>
+		</ul>
+		<br>
 	</div>
 </div>

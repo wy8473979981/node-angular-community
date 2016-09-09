@@ -19,7 +19,9 @@ module.exports.userInfo = function(req, res){
 						}
 						else{
 							postTopics.push(theTopic);
-							asyncEnd1 = true;
+							if(postTopics.length == theUser.userPostTopic.length){
+								asyncEnd1 = true;
+							}
 							//能正常打印
 							//console.log(postTopics);
 						}
@@ -34,12 +36,15 @@ module.exports.userInfo = function(req, res){
 			if(theUser.userReplyTopic.length > 0){
 				for(var i = 0; i < theUser.userReplyTopic.length; i++){
 					Topic.findById(theUser.userReplyTopic[i], function(err, theTopic){
+						//console.log(i);
 						if(err){
 							res.json({status: 500});
 						}
 						else{
 							replyTopics.push(theTopic);
-							asyncEnd2 = true;
+							if(replyTopics.length == theUser.userReplyTopic.length){
+								asyncEnd2 = true;
+							}
 						}
 					});
 				}
