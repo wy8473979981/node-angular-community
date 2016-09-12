@@ -45,7 +45,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="postTopic in postTopics | orderBy: 'date':true" ng-class-odd="'odd'" ng-class-even="'even'">
+				<tr ng-repeat="postTopic in postTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
 					<td><img src="{{postTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{postTopic.comment.length}}</span>&nbsp;/<span class="pv">{{postTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{postTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{postTopic._id}}">{{postTopic.title}}</a><small class="floatRight mainDValue"><img src="{{postTopic.finalCommenterImg}}" width="20" height="20" ng-show="postTopic.showFinalImg">&nbsp;&nbsp;&nbsp;{{postTopic.timeDValue}}</small></td>
 				</tr>
 			</tbody>
@@ -62,7 +62,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="replyTopic in replyTopics | orderBy: 'date':true" ng-class-odd="'odd'" ng-class-even="'even'">
+				<tr ng-repeat="replyTopic in replyTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
 					<td><img src="{{replyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{replyTopic.comment.length}}</span>&nbsp;/<span class="pv">{{replyTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{replyTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{replyTopic._id}}">{{replyTopic.title}}</a><small class="floatRight mainDValue"><img src="{{replyTopic.finalCommenterImg}}" width="20" height="20" ng-show="replyTopic.showFinalImg">&nbsp;&nbsp;{{replyTopic.timeDValue}}</small></td>
 				</tr>
 			</tbody>
@@ -79,7 +79,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="collTopic in collTopics | orderBy: 'date':true" ng-class-odd="'odd'" ng-class-even="'even'">
+				<tr ng-repeat="collTopic in collTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
 					<td><img src="{{collTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{collTopic.comment.length}}</span>&nbsp;/<span class="pv">{{collTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{collTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{collTopic._id}}">{{collTopic.title}}</a><small class="floatRight mainDValue"><img src="{{collTopic.finalCommenterImg}}" width="20" height="20" ng-show="collTopic.showFinalImg">&nbsp;&nbsp;{{collTopic.timeDValue}}</small></td>
 				</tr>
 			</tbody>
