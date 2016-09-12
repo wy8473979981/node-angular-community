@@ -4,6 +4,15 @@ body {
 h5 {
 	font-size: 12px;
 }
+li {
+	line-height: 22px;
+}
+/*
+	调整bs的class为container的div的宽度
+*/
+.container {
+	width: 1300px;
+}
 .navbar {
 	background-color: #444;
 }
@@ -18,6 +27,8 @@ h5 {
 }
 .personalInfo {
 	background-color: #fff;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 .models {
 	cursor: pointer;
@@ -167,6 +178,20 @@ td {
 }
 .noReplyTopic:hover {
 	color: #a0a0a0;
+}
+.showTopicInfo {
+	font-size: 12px;
+}
+.mainDValue {
+	font-size: 12px;
+	color: #808d01;
+}
+.deleteBtn, .editBtn {
+	cursor: pointer;
+}
+.collectBtn {
+	width: 52px;
+	height: 34px;
 }
 /*.srcCode {
 	font-size: 13px;

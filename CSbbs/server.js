@@ -142,6 +142,9 @@ app.post('/addComment', topicsController.addComment);
 //添加对评论的回复
 app.post('/addReply', topicsController.addReply);
 
+//收藏话题
+app.post('/collectTopic', topicsController.collectTopic);
+
 //查看用户信息页
 app.post('/userInfo', userInfoController.userInfo);
 

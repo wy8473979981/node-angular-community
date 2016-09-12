@@ -9,8 +9,10 @@ module.exports.userInfo = function(req, res){
 		else{
 			var postTopics = [];	//该用户发布的话题对象数组
 			var replyTopics = [];	//该用户回复的话题对象数组
+			var collTopics = [];	//该用户收藏的话题对象数组
 			var asyncEnd1 = false;
 			var asyncEnd2 = false;
+			var asyncEnd3 = false;
 			if(theUser.userPostTopic.length > 0){
 				for(var i = 0; i < theUser.userPostTopic.length; i++){
 					Topic.findById(theUser.userPostTopic[i], function(err, theTopic){
@@ -52,10 +54,29 @@ module.exports.userInfo = function(req, res){
 			else{
 				asyncEnd2 = true;
 			}
+			if(theUser.userCollTopic.length > 0){
+				for(var i = 0; i < theUser.userCollTopic.length; i++){
+					Topic.findById(theUser.userCollTopic[i], function(err, theTopic){
+						//console.log(i);
+						if(err){
+							res.json({status: 500});
+						}
+						else{
+							collTopics.push(theTopic);
+							if(collTopics.length == theUser.userCollTopic.length){
+								asyncEnd3 = true;
+							}
+						}
+					});
+				}
+			}
+			else{
+				asyncEnd3 = true;
+			}
 			//res.send({state: 'success', user: theUser, postTopics: postTopics, replyTopics: replyTopics});
 			var interval = setInterval(function(){
-				if(asyncEnd1 && asyncEnd2){
-					res.send({state: 'success', user: theUser, postTopics: postTopics, replyTopics: replyTopics});
+				if(asyncEnd1 && asyncEnd2 && asyncEnd3){
+					res.send({state: 'success', user: theUser, postTopics: postTopics, replyTopics: replyTopics, collTopics: collTopics});
 					clearInterval(interval);
 				}
 			}, 1000);

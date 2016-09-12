@@ -255,3 +255,36 @@ module.exports.addReply = function(req, res){
 		}
 	});
 }
+
+module.exports.collectTopic = function(req, res){
+	var username = req.body.theUser;
+	var topicId = req.body.topicId;
+	User.findOne({username: username}, function(err, theUser){
+		if(err){
+			res.json({status: 500});
+		}
+		else{
+			//如果用户之前没收藏过该话题，则在userCollTopic中添加该话题id,放置在数组中出现多个同样的id。
+			var newColl = true;
+			for(var i = 0; i < theUser.userCollTopic.length; i++){
+				if(theUser.userCollTopic[i] == topicId){
+					newColl = false;
+				}
+			}
+			if(newColl){
+				theUser.userCollTopic.push(topicId);
+				theUser.save(function(err){
+					if(err){
+						res.json({status: 500});
+					}
+					else{
+						res.send({state: 'success'});
+					}
+				});
+			}
+			else{
+				res.send({state: 'failure'});
+			}
+		}
+	});
+}

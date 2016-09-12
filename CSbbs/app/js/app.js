@@ -62,6 +62,32 @@ app.controller('mainCtrl', function($scope, $http, $rootScope){
 		if(res.state == 'success'){
 			$rootScope.topics = res.topics;
 
+
+			//时间差
+			for(var i = 0; i < $rootScope.topics.length; i++){
+				var oldDate = new Date($rootScope.topics[i].date);
+				var dValue = Date.now() - oldDate;
+				if(dValue < 60000){
+					$rootScope.topics[i].timeDValue = '不到1分钟';
+				}
+				else if(dValue > 60000 && dValue <= 3600000){
+					$rootScope.topics[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+				}
+				else if(dValue > 3600000 && dValue <= 86400000){
+					$rootScope.topics[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+				}
+				else if(dValue > 86400000 && dValue <= 2592000000){
+					$rootScope.topics[i].timeDValue = parseInt(dValue/86400000) + '天前';
+				}
+				else if(dValue > 2592000000 && dValue <= 31104000000){
+					$rootScope.topics[i].timeDValue = parseInt(dValue/259200000) + '个月前';
+				}
+				else if(dValue > 31104000000){
+					$rootScope.topics[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+				}
+			}
+
+
 			//无人回复的话题
 			$rootScope.noReplyTopics = [];
 			for(var i = 0; i < $rootScope.topics.length; i++){
@@ -72,6 +98,22 @@ app.controller('mainCtrl', function($scope, $http, $rootScope){
 					}
 				}
 			}
+
+
+			//最后回复者的头像
+			for(var i = 0; i < $rootScope.topics.length; i++){
+				var finalIndex = $rootScope.topics[i].comment.length - 1;
+				if(finalIndex >= 0){
+					$rootScope.topics[i].showFinalImg = true;
+					$rootScope.topics[i].finalCommenterImg = $rootScope.topics[i].comment[finalIndex].commentUserImage;
+				}
+				else{
+					$rootScope.topics[i].showFinalImg = false;
+					//随便设一个，反正不会显示
+					$rootScope.topics[i].finalCommenterImg = '/app/images/coder.png';
+				}
+			}
+
 
 		}
 	});
@@ -143,7 +185,7 @@ app.controller('loginCtrl', function($scope, $http, $rootScope, $location){
 		});
 	}
 	//$scope.loginWithGithub = function(){
-		//好奇怪，为什么超链接的get方式与这个get方式不一样呢，而我又不会处理跨域，wtf
+		//好奇怪，为什么超链接的get方式与这个get方式不一样呢
 		/*$http.get('/auth/github').success(function(res){
 			console.log(res);
 		});*/
@@ -232,6 +274,32 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
         console.log($scope.user.imageUrl);
     }
 
+
+    //时间差
+	for(var i = 0; i < $rootScope.topics.length; i++){
+		var oldDate = new Date($rootScope.topics[i].date);
+		var dValue = Date.now() - oldDate;
+		if(dValue < 60000){
+			$rootScope.topics[i].timeDValue = '不到1分钟';
+		}
+		else if(dValue > 60000 && dValue <= 3600000){
+			$rootScope.topics[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+		}
+		else if(dValue > 3600000 && dValue <= 86400000){
+			$rootScope.topics[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+		}
+		else if(dValue > 86400000 && dValue <= 2592000000){
+			$rootScope.topics[i].timeDValue = parseInt(dValue/86400000) + '天前';
+		}
+		else if(dValue > 2592000000 && dValue <= 31104000000){
+			$rootScope.topics[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+		}
+		else if(dValue > 31104000000){
+			$rootScope.topics[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+		}
+	}
+
+
     //无人回复的话题
 	$rootScope.noReplyTopics = [];
 	for(var i = 0; i < $rootScope.topics.length; i++){
@@ -311,6 +379,37 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
     	else {
     		$scope.gottenComments[i].atUser = true;
     	}
+
+
+    	//评论中的时间差
+    	var oldDate = new Date($scope.gottenComments[i].commentDate);
+		var dValue = Date.now() - oldDate;
+		if(dValue < 60000){
+			$scope.gottenComments[i].timeDValue = '不到1分钟';
+		}
+		else if(dValue > 60000 && dValue <= 3600000){
+			$scope.gottenComments[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+		}
+		else if(dValue > 3600000 && dValue <= 86400000){
+			$scope.gottenComments[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+		}
+		else if(dValue > 86400000 && dValue <= 2592000000){
+			$scope.gottenComments[i].timeDValue = parseInt(dValue/86400000) + '天前';
+		}
+		else if(dValue > 2592000000 && dValue <= 31104000000){
+			$scope.gottenComments[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+		}
+		else if(dValue > 31104000000){
+			$scope.gottenComments[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+		}
+
+
+		//最后评论的用户
+		var finalIndex = $scope.gottenComments.length - 1;
+		$scope.finalCommenter = $scope.gottenComments[finalIndex].commentUser;
+		$scope.finalCommentDate = $scope.gottenComments[finalIndex].timeDValue;
+		
+
     }
     $scope.commentCounts = $scope.topic.comment.length;
 
@@ -343,7 +442,8 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
     			//console.log(res.topic.comment);
     			$scope.gottenComments = res.topic.comment;
     			$scope.commentCounts = res.topic.comment.length;
-    			for(var i = 0 ; i < $scope.topic.comment.length; i++){
+    			location.reload(true);
+    			/*for(var i = 0 ; i < $scope.topic.comment.length; i++){
 			    	$scope.gottenComments[i].showit = false;
 			    	if($scope.gottenComments[i].commentAt == '' || $scope.gottenComments[i].commentAt === undefined){
 			    		$scope.gottenComments[i].atUser = false;
@@ -351,7 +451,32 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
 			    	else {
 			    		$scope.gottenComments[i].atUser = true;
 			    	}
-			    }
+
+
+			    	//评论中的时间差
+			    	var oldDate = new Date($scope.gottenComments[i].date);
+					var dValue = Date.now() - oldDate;
+					if(dValue < 60000){
+						$scope.gottenComments[i].timeDValue = '不到1分钟';
+					}
+					else if(dValue > 60000 && dValue <= 3600000){
+						$scope.gottenComments[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+					}
+					else if(dValue > 3600000 && dValue <= 86400000){
+						$scope.gottenComments[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+					}
+					else if(dValue > 86400000 && dValue <= 2592000000){
+						$scope.gottenComments[i].timeDValue = parseInt(dValue/86400000) + '天前';
+					}
+					else if(dValue > 2592000000 && dValue <= 31104000000){
+						$scope.gottenComments[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+					}
+					else if(dValue > 31104000000){
+						$scope.gottenComments[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+					}
+
+
+			    }*/
     			//$location.path('/showTopic');
     		}
     	});
@@ -394,7 +519,8 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
     	$http.post('/addReply', data).success(function(res){
     		$scope.gottenComments = res.topic.comment;
     		$scope.commentCounts = res.topic.comment.length;
-    		for(var i = 0 ; i < $scope.topic.comment.length; i++){
+    		location.reload(true);
+    		/*for(var i = 0 ; i < $scope.topic.comment.length; i++){
 		    	$scope.gottenComments[i].showit = false;
 		    	if($scope.gottenComments[i].commentAt == '' || $scope.gottenComments[i].commentAt === undefined){
 		    		$scope.gottenComments[i].atUser = false;
@@ -402,8 +528,50 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
 		    	else {
 		    		$scope.gottenComments[i].atUser = true;
 		    	}
-		    }
+
+
+		    	//评论中的时间差
+		    	var oldDate = new Date($scope.gottenComments[i].date);
+				var dValue = Date.now() - oldDate;
+				if(dValue < 60000){
+					$scope.gottenComments[i].timeDValue = '不到1分钟';
+				}
+				else if(dValue > 60000 && dValue <= 3600000){
+					$scope.gottenComments[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+				}
+				else if(dValue > 3600000 && dValue <= 86400000){
+					$scope.gottenComments[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+				}
+				else if(dValue > 86400000 && dValue <= 2592000000){
+					$scope.gottenComments[i].timeDValue = parseInt(dValue/86400000) + '天前';
+				}
+				else if(dValue > 2592000000 && dValue <= 31104000000){
+					$scope.gottenComments[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+				}
+				else if(dValue > 31104000000){
+					$scope.gottenComments[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+				}
+
+
+		    }*/
     		//$location.path('/showTopic');
+    	});
+    }
+
+
+    //收藏话题
+    $scope.collect = function(){
+    	var data = {
+    		theUser: $rootScope.current_user,
+    		topicId: $scope.topic._id
+    	}
+    	$http.post('/collectTopic', data).success(function(res){
+    		if(res.state == 'success'){
+    			alert('收藏成功');
+    		}
+    		if(res.state == 'failure'){
+    			alert('您已收藏过该话题');
+    		}
     	});
     }
 });
@@ -544,6 +712,117 @@ app.controller('userInfoCtrl', function ($scope, $rootScope, $location, $http, $
 			$scope.postCount = $scope.postTopics.length;
 			$scope.replyTopics = res.replyTopics;
 			$scope.replyCount = $scope.replyTopics.length;
+			$scope.collTopics = res.collTopics;
+			$scope.collCount = $scope.collTopics.length;
+
+			$scope.showColl = false;
+
+			if($scope.theUser.username == $rootScope.current_user){
+				$scope.showColl = true;
+			}
+
+
+			//用户信息页中的时间差
+			//发布的话题中的时间差
+			for(var i = 0; i < $scope.postTopics.length; i++){
+				var oldDate = new Date($scope.postTopics[i].date);
+				var dValue = Date.now() - oldDate;
+				if(dValue < 60000){
+					$scope.postTopics[i].timeDValue = '不到1分钟';
+				}
+				else if(dValue > 60000 && dValue <= 3600000){
+					$scope.postTopics[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+				}
+				else if(dValue > 3600000 && dValue <= 86400000){
+					$scope.postTopics[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+				}
+				else if(dValue > 86400000 && dValue <= 2592000000){
+					$scope.postTopics[i].timeDValue = parseInt(dValue/86400000) + '天前';
+				}
+				else if(dValue > 2592000000 && dValue <= 31104000000){
+					$scope.postTopics[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+				}
+				else if(dValue > 31104000000){
+					$scope.postTopics[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+				}
+			}
+			//评论的话题中的时间差
+			for(var i = 0; i < $scope.replyTopics.length; i++){
+				var oldDate = new Date($scope.replyTopics[i].date);
+				var dValue = Date.now() - oldDate;
+				if(dValue < 60000){
+					$scope.replyTopics[i].timeDValue = '不到1分钟';
+				}
+				else if(dValue > 60000 && dValue <= 3600000){
+					$scope.replyTopics[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+				}
+				else if(dValue > 3600000 && dValue <= 86400000){
+					$scope.replyTopics[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+				}
+				else if(dValue > 86400000 && dValue <= 2592000000){
+					$scope.replyTopics[i].timeDValue = parseInt(dValue/86400000) + '天前';
+				}
+				else if(dValue > 2592000000 && dValue <= 31104000000){
+					$scope.replyTopics[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+				}
+				else if(dValue > 31104000000){
+					$scope.replyTopics[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+				}
+			}
+			//收藏的话题中的时间差
+			for(var i = 0; i < $scope.collTopics.length; i++){
+				var oldDate = new Date($scope.collTopics[i].date);
+				var dValue = Date.now() - oldDate;
+				if(dValue < 60000){
+					$scope.collTopics[i].timeDValue = '不到1分钟';
+				}
+				else if(dValue > 60000 && dValue <= 3600000){
+					$scope.collTopics[i].timeDValue = parseInt(dValue/60000) + '分钟前';
+				}
+				else if(dValue > 3600000 && dValue <= 86400000){
+					$scope.collTopics[i].timeDValue = parseInt(dValue/3600000) + '小时前';
+				}
+				else if(dValue > 86400000 && dValue <= 2592000000){
+					$scope.collTopics[i].timeDValue = parseInt(dValue/86400000) + '天前';
+				}
+				else if(dValue > 2592000000 && dValue <= 31104000000){
+					$scope.collTopics[i].timeDValue = parseInt(dValue/2592000000) + '个月前';
+				}
+				else if(dValue > 31104000000){
+					$scope.collTopics[i].timeDValue = parseInt(dValue/31104000000) + '年前';
+				}
+			}
+
+
+			//用户信息页中的最后回复者头像
+			//用户发表的话题中最后回复者头像
+			for(var i = 0; i < $scope.postTopics.length; i++){
+				var finalIndex = $scope.postTopics[i].comment.length - 1;
+				if(finalIndex >= 0){
+					$scope.postTopics[i].showFinalImg = true;
+					$scope.postTopics[i].finalCommenterImg = $scope.postTopics[i].comment[finalIndex].commentUserImage;
+				}
+				else{
+					$scope.postTopics[i].showFinalImg = false;
+					//随便设一个，反正不会显示
+					$scope.postTopics[i].finalCommenterImg = '/app/images/coder.png';
+				}
+			}
+			//用户回复的话题中最后回复者头像
+			for(var i = 0; i < $scope.replyTopics.length; i++){
+				var finalIndex = $scope.replyTopics[i].comment.length - 1;
+				if(finalIndex >= 0){
+					$scope.replyTopics[i].showFinalImg = true;
+					$scope.replyTopics[i].finalCommenterImg = $scope.replyTopics[i].comment[finalIndex].commentUserImage;
+				}
+				else{
+					$scope.replyTopics[i].showFinalImg = false;
+					//随便设一个，反正不会显示
+					$scope.replyTopics[i].finalCommenterImg = '/app/images/coder.png';
+				}
+			}
+
+
 		}
 	});
 });
