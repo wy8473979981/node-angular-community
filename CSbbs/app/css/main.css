@@ -10,9 +10,9 @@ li {
 /*
 	调整bs的class为container的div的宽度
 */
-.container {
+/*.container {
 	width: 1300px;
-}
+}*/
 .navbar {
 	background-color: #444;
 }
@@ -192,6 +192,11 @@ td {
 .collectBtn {
 	width: 52px;
 	height: 34px;
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1300px;
+  }
 }
 /*.srcCode {
 	font-size: 13px;
