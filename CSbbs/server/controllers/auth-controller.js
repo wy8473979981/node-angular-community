@@ -1,4 +1,5 @@
 var User = require('../datasets/users');
+var bCrypt = require('bcrypt-nodejs');
 
 /*var nodemailer = require('nodemailer');
 
@@ -49,7 +50,7 @@ module.exports.register = function(req, res){
 		else {
 			var user = new User();
 			user.username = req.body.username;
-			user.password = req.body.password;
+			user.password = bCrypt.hashSync(req.body.password, bCrypt.genSaltSync(10), null);
 			user.signDate = Date.now();
 			user.imageUrl = './app/images/coder.png';
 			user.save(function(err){
@@ -71,14 +72,20 @@ module.exports.register = function(req, res){
 }*/
 
 module.exports.login = function(req, res){
-	User.findOne({'username': req.body.username, 'password': req.body.password}, function(err, user){
+	User.findOne({'username': req.body.username}, function(err, user){
 		if(err){
 			console.log("There is an error");
 			res.redirect('/auth/login');
 		}
 		if(user){
-			req.session.user = user;
-			res.send({state: 'success', user: {username: req.body.username, imageUrl: user.imageUrl, sign:user.sign}});
+			if(bCrypt.compareSync(req.body.password, user.password)){
+				req.session.user = user;
+				res.send({state: 'success', user: {username: req.body.username, imageUrl: user.imageUrl, sign:user.sign}});
+			}
+			else{
+				console.log("Wrong username or password");
+				res.redirect('/auth/login/userError');
+			}
 		}
 		else {
 			console.log("Wrong username or password");
