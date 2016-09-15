@@ -1,5 +1,6 @@
 var User = require('../datasets/users');
 var Topic = require('../datasets/topics');
+var bCrypt = require('bcrypt-nodejs');
 var fs = require('fs-extra');
 var path = require('path');
 module.exports.modifyImage = function(req, res){
@@ -94,7 +95,6 @@ module.exports.modifyImage = function(req, res){
             				//please 时刻牢记，comment是个对象数组T_T
             				
             				for(var j = 0; j < topics[i].comment.length; j++){
-            					console.log('what the fuck:' + user.username);
             					//找到该用户评论的话题，修改评论中的用户信息
             					if(topics[i].comment[j].commentUser == user.username){
             						//console.log('第二个标记，我依然好烦呀呀呀呀呀');
@@ -147,7 +147,7 @@ module.exports.modifyImage = function(req, res){
             				}*/
             			}
             			user.username = updatedUser.username;
-		            	user.password = updatedUser.password;
+		            	user.password = bCrypt.hashSync(updatedUser.password, bCrypt.genSaltSync(10), null);
 		            	if(updatedUser.sign == ''){
 		            		user.sign = '这家伙很懒，什么个性签名也没留下'
 		            	}

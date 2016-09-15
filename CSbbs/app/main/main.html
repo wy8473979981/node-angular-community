@@ -7,7 +7,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="topic in topics | orderBy:'finalDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-				<td><img src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{topic.comment.length}}</span>&nbsp;/<span class="pv">{{topic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{topic.block}}</span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}">{{topic.title}}</a><small class="floatRight mainDValue"><img src="{{topic.finalCommenterImg}}" width="20" height="20" ng-show="topic.showFinalImg">&nbsp;&nbsp;&nbsp;{{topic.timeDValue}}</small></td>
+				<td><img ng-src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{topic.comment.length}}</span>&nbsp;/<span class="pv">{{topic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{topic.block}}</span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}">{{topic.title}}</a><small class="floatRight mainDValue"><img ng-src="{{topic.finalCommenterImg}}" width="20" height="20" ng-show="topic.showFinalImg">&nbsp;&nbsp;&nbsp;{{topic.timeDValue}}</small></td>
 			</tr>
 		</tbody>
 	</table>

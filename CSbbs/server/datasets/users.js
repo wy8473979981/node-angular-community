@@ -7,6 +7,13 @@ module.exports = mongoose.model('User', {
 	userPostTopic: [{type: String}],
 	userReplyTopic: [{type: String}],
 	userCollTopic: [{type: String}],
+	unread: [{
+		commentUser: String,
+		topicId: String,
+		commentDate: {
+			type: Date
+		}
+	}],
 	imageUrl: String,
 	signDate: {type: Date, default: Date.now}
 });

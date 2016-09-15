@@ -198,6 +198,22 @@ td {
     width: 1300px;
   }
 }
+.outForm {
+	margin-top: 15%;
+	text-align: center;
+}
+.allForm {
+	padding: 15px 30px 15px 30px;
+	background: -webkit-linear-gradient(top, #9eccae, #518187);
+	background: -moz-linear-gradient(top, #9eccae, #518187);
+	text-align: center;
+}
+.noLeft {
+	border-left-width: 0;
+}
+.welcome {
+	color: #002f93;
+}
 /*.srcCode {
 	font-size: 13px;
 	color: #000;

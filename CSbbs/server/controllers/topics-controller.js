@@ -59,6 +59,9 @@ module.exports.pvPlus = function(req, res){
 				if(err){
 					res.json({status: 500});
 				}
+				else{
+					res.send({state: 'success'});
+				}
 			});
 		}
 	});
@@ -181,25 +184,68 @@ module.exports.addComment = function(req, res){
 			commentUserImage: user.imageUrl,
 			commentDate: req.body.commentDate
 		}
+		//新的未读消息信息
+		var newUnread = {
+			commentUser: req.body.commentUser,
+			topicId: req.body.topicId,
+			commentDate: req.body.commentDate
+		}
 		Topic.findById(topicId, function(err, topic){
 			if(err){
 				res.json({status: 500});
 			}
 			else {
-				topic.comment.push(newComment);
-				topic.save(function(err){
-					if(err){
-						res.json({status: 500});
-					}
-					else {
-						user.save(function(err){
-							if(err){
-								res.json({status: 500});
-							}
-						});
-						res.send({state: 'success', topic: topic});
-					}
-				});
+				//如果评论的用户并非作者，则对作者添加一条未读消息
+				if(req.body.commentUser != topic.user){
+					User.findOne({username: topic.user}, function(err, theUser){
+						if(err){
+							res.json({status: 500});
+						}
+						else {
+							theUser.unread.push(newUnread);
+							console.log(theUser);
+							console.log('------华丽的分割线-------');
+							console.log(newUnread);
+							theUser.save(function(err){
+								if(err){
+									res.json({status: 500});
+								}
+								else{
+									topic.comment.push(newComment);
+									topic.save(function(err){
+										if(err){
+											res.json({status: 500});
+										}
+										else {
+											user.save(function(err){
+												if(err){
+													res.json({status: 500});
+												}
+											});
+											res.send({state: 'success', topic: topic});
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+				else{
+					topic.comment.push(newComment);
+					topic.save(function(err){
+						if(err){
+							res.json({status: 500});
+						}
+						else {
+							user.save(function(err){
+								if(err){
+									res.json({status: 500});
+								}
+							});
+							res.send({state: 'success', topic: topic});
+						}
+					});
+				}
 			}
 		});
 	});
@@ -231,25 +277,60 @@ module.exports.addReply = function(req, res){
 				commentAt: req.body.commentUser,
 				commentDate: req.body.replyDate
 			}
+			//新的未读消息信息
+			var newUnread = {
+				commentUser: req.body.replyUser,
+				topicId: req.body.topicId,
+				commentDate: req.body.replyDate
+			}
 			Topic.findById(topicId, function(err, topic){
 				if(err){
 					res.json({status: 500});
 				}
 				else {
-					topic.comment.push(newReply);
-					topic.save(function(err){
-						if(err){
-							res.json({status: 500});
-						}
-						else {
-							user.save(function(err){
-								if(err){
-									res.json({status: 500});
-								}
-							});
-							res.send({state: 'success', topic: topic});
-						}
-					});
+					//如果评论的用户并非作者，则对作者添加一条未读消息
+					if(req.body.replyUser != topic.user){
+						User.findOne({username: topic.user}, function(err, theUser){
+							if(err){
+								res.json({status: 500});
+							}
+							else {
+								theUser.unread.push(newUnread);
+
+								topic.comment.push(newReply);
+								topic.save(function(err){
+									if(err){
+										res.json({status: 500});
+									}
+									else {
+										user.save(function(err){
+											if(err){
+												res.json({status: 500});
+											}
+										});
+										res.send({state: 'success', topic: topic});
+									}
+								});
+							}
+						});
+					}
+
+					else {
+						topic.comment.push(newReply);
+						topic.save(function(err){
+							if(err){
+								res.json({status: 500});
+							}
+							else {
+								user.save(function(err){
+									if(err){
+										res.json({status: 500});
+									}
+								});
+								res.send({state: 'success', topic: topic});
+							}
+						});
+					}
 				}
 			});
 		}

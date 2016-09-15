@@ -51,6 +51,8 @@ module.exports.register = function(req, res){
 			var user = new User();
 			user.username = req.body.username;
 			user.password = bCrypt.hashSync(req.body.password, bCrypt.genSaltSync(10), null);
+			console.log('-----------华丽的侦察机分割线-----------');
+			console.log(user.password);
 			user.signDate = Date.now();
 			user.imageUrl = './app/images/coder.png';
 			user.save(function(err){

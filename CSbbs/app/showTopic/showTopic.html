@@ -25,7 +25,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="gottenComment in gottenComments | orderBy: 'commentDate'" ng-class-odd="'odd'" ng-class-even="'odd'">
-					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small>{{gottenComment.commentUser}}</small>&nbsp;•<small>{{gottenComment.timeDValue}}</small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{gottenComment.commentAt}}"><span class="atUser" ng-show="gottenComment.atUser">@{{gottenComment.commentAt}}</span></a>&nbsp;{{gottenComment.commentInner}}</p>
+					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img ng-src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small>{{gottenComment.commentUser}}</small>&nbsp;•<small>{{gottenComment.timeDValue}}</small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{gottenComment.commentAt}}"><span class="atUser" ng-show="gottenComment.atUser">@{{gottenComment.commentAt}}</span></a>&nbsp;{{gottenComment.commentInner}}</p>
 					<div class="commentInner" ng-show="gottenComment.showit">
 						<h5>添加回复</h5>
 						<hr class="addReply">
@@ -55,7 +55,7 @@
 	<div class="col-sm-12 col-sm-offset-0 personalInfo">
 		<div class="marginTB">
 			<p>作者:</p>
-			<a href="#/userInfo?username={{topic.user}}"><img src="{{topic.userImage}}" width="40" height="40"></a>{{topic.user}}
+			<a href="#/userInfo?username={{topic.user}}"><img ng-src="{{topic.userImage}}" width="40" height="40"></a>{{topic.user}}
 			<br><br>
 			<span>{{topic.userSign}}</span>
 		</div>

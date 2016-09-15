@@ -16,6 +16,7 @@ var app = angular.module('CSbbs', ['ngRoute', 'ngFileUpload']).run(function($roo
 			$rootScope.topics = res.topics;
 		}
 	});
+	//setTimeout($rootScope.logout(), 5000);
 });
 
 app.config(function($routeProvider){
@@ -43,6 +44,9 @@ app.config(function($routeProvider){
 	}).when('/userInfo', {
 		templateUrl: 'app/userInfo/userInfo.html',
 		controller: 'userInfoCtrl'
+	}).when('/unread', {
+		templateUrl: 'app/unread/unread.html',
+		controller: 'unreadCtrl'
 	});
 });
 
@@ -879,6 +883,29 @@ app.controller('userInfoCtrl', function ($scope, $rootScope, $location, $http, $
 
 
 		}
+	});
+});
+
+//未读信息页的控制器
+app.controller('unreadCtrl', function($http, $scope, $rootScope, $location, $routeParams){
+	if (localStorage['User-Data'] !== undefined){
+        $scope.user = JSON.parse(localStorage['User-Data']);
+        console.log($scope.user);
+        $rootScope.current_user = $scope.user.username;
+        $rootScope.current_user_sign = $scope.user.sign;
+        $rootScope.authed = true;
+        $rootScope.showImage = true;
+        $rootScope.user_image_url = $scope.user.imageUrl;
+        console.log($scope.user.imageUrl);
+    }
+
+
+	//$routeParams.username为当前用户名
+	var data = {
+		username: $routeParams.username
+	}
+	$http.post('/unread', data).success(function(res){
+		console.log(res);
 	});
 });
 

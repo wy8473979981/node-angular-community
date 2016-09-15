@@ -20,7 +20,10 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser())
-app.use(express.session({secret: 'blog.fens.me'}));
+app.use(express.session({
+	secret: 'blog.fens.me',
+	cookie: {maxAge: 60*1000}
+}));
 /*app.use(passport.initialize());
 app.use(passport.session());*/
 app.use(app.router);
@@ -37,6 +40,7 @@ var authController = require('./server/controllers/auth-controller.js');
 var topicsController = require('./server/controllers/topics-controller.js');
 var modifyController = require('./server/controllers/modify-controller.js');
 var userInfoController = require('./server/controllers/userInfo-controller.js');
+var unreadController = require('./server/controllers/unread-controller.js');
 
 mongoose.connect('mongodb://localhost:27017/CSbbs');
 
@@ -63,6 +67,7 @@ passport.use(new GithubStrategy({//对应从Github申请KEY
 }));*/
 
 app.get('/', function(req, res){
+	console.log(req.session);
 	res.sendfile('index.html');
 });
 
@@ -147,6 +152,9 @@ app.post('/collectTopic', topicsController.collectTopic);
 
 //查看用户信息页
 app.post('/userInfo', userInfoController.userInfo);
+
+//未读消息页
+app.post('/unread', unreadController.unread);
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
