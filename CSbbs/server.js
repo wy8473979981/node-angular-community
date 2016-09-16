@@ -156,6 +156,9 @@ app.post('/userInfo', userInfoController.userInfo);
 //未读消息页
 app.post('/unread', unreadController.unread);
 
+//确认未读消息
+app.post('/asureUnread', unreadController.asureUnread);
+
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });

@@ -184,13 +184,15 @@ module.exports.addComment = function(req, res){
 			commentUserImage: user.imageUrl,
 			commentDate: req.body.commentDate
 		}
-		//新的未读消息信息
-		var newUnread = {
-			commentUser: req.body.commentUser,
-			topicId: req.body.topicId,
-			commentDate: req.body.commentDate
-		}
 		Topic.findById(topicId, function(err, topic){
+			//新的未读消息信息
+			var newUnread = {
+				commentUser: req.body.commentUser,
+				topicId: req.body.topicId,
+				topicTitle: topic.title,
+				asure: false,
+				commentDate: req.body.commentDate
+			}
 			if(err){
 				res.json({status: 500});
 			}
@@ -277,42 +279,83 @@ module.exports.addReply = function(req, res){
 				commentAt: req.body.commentUser,
 				commentDate: req.body.replyDate
 			}
-			//新的未读消息信息
-			var newUnread = {
-				commentUser: req.body.replyUser,
-				topicId: req.body.topicId,
-				commentDate: req.body.replyDate
-			}
 			Topic.findById(topicId, function(err, topic){
+				//新的未读消息信息,除了作者，被@的用户也要收到未读消息
+				var newUnread = {
+					commentUser: req.body.replyUser,
+					topicId: req.body.topicId,
+					topicTitle: topic.title,
+					asure: false,
+					commentDate: req.body.replyDate
+				}
 				if(err){
 					res.json({status: 500});
 				}
 				else {
 					//如果评论的用户并非作者，则对作者添加一条未读消息
 					if(req.body.replyUser != topic.user){
+						//判断对读者添加未读消息的操作是否完毕，设置一个变量asyncEnd1
+						var asyncEnd1 = false;
+						//判断对被@的用户添加未读消息的操作是否完毕，设置一个变量asyncEnd2
+						var asyncEnd2 = false;
+						//对作者添加未读消息
 						User.findOne({username: topic.user}, function(err, theUser){
 							if(err){
 								res.json({status: 500});
 							}
 							else {
 								theUser.unread.push(newUnread);
-
-								topic.comment.push(newReply);
-								topic.save(function(err){
+								theUser.save(function(err){
 									if(err){
 										res.json({status: 500});
 									}
-									else {
-										user.save(function(err){
+									else{
+										topic.comment.push(newReply);
+										topic.save(function(err){
 											if(err){
 												res.json({status: 500});
 											}
+											else {
+												user.save(function(err){
+													if(err){
+														res.json({status: 500});
+													}
+													asyncEnd1 = true;
+												});
+												//res.send({state: 'success', topic: topic});
+											}
 										});
-										res.send({state: 'success', topic: topic});
 									}
 								});
 							}
 						});
+						//对被@的用户添加未读消息,如果@的是自己，则不用
+						if(req.body.replyUser == req.body.commentUser){
+							asyncEnd2 = true;
+						}
+						else{
+							User.findOne({username: req.body.commentUser}, function(err, theUser){
+								if(err){
+									res.json({status: 500});
+								}
+								else{
+									theUser.unread.push(newUnread);
+									theUser.save(function(err){
+										if(err){
+											res.json({status: 500});
+										}
+										asyncEnd2 = true;
+									});
+								}
+							});
+						}
+
+						var interval = setInterval(function(){
+							if(asyncEnd1 && asyncEnd2){
+								res.send({state: 'success', topic: topic});
+								clearInterval(interval);
+							}
+						}, 1000);
 					}
 
 					else {
@@ -322,12 +365,27 @@ module.exports.addReply = function(req, res){
 								res.json({status: 500});
 							}
 							else {
-								user.save(function(err){
+								User.findOne({username: req.body.commentUser}, function(err, theUser){
 									if(err){
 										res.json({status: 500});
 									}
+									else{
+										theUser.unread.push(newUnread);
+										theUser.save(function(err){
+											if(err){
+												res.json({status: 500});
+											}
+											user.save(function(err){
+												if(err){
+													res.json({status: 500});
+												}
+												else{
+													res.send({state: 'success', topic: topic});
+												}
+											});
+										});
+									}
 								});
-								res.send({state: 'success', topic: topic});
 							}
 						});
 					}

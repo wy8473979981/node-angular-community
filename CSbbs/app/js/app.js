@@ -4,6 +4,8 @@ var app = angular.module('CSbbs', ['ngRoute', 'ngFileUpload']).run(function($roo
 	$rootScope.current_user_sign = "这家伙很懒，什么个性签名也没留下";
 	$rootScope.user_image_url = "";
 	$rootScope.showImage = false;
+	$rootScope.unreadCount = 0;
+	$rootScope.showCount = false;
 	$rootScope.logout = function(){
 		localStorage.clear();
 		$rootScope.authed = false;
@@ -60,6 +62,8 @@ app.controller('mainCtrl', function($scope, $http, $rootScope){
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
     }
 	$http.get('/topics').success(function(res){
@@ -174,8 +178,26 @@ app.controller('registerCtrl', function($scope, $http, $rootScope, $location){
 					$rootScope.current_user_sign = res.user.sign;
 					$rootScope.user_image_url = res.user.imageUrl;
 					$rootScope.showImage = true;
-					localStorage.setItem('User-Data', JSON.stringify(res.user));
-					$location.path('/');
+					//localStorage.setItem('User-Data', JSON.stringify(res.user));
+					//$location.path('/');
+
+					var data = {
+						username: $scope.user.username
+					}
+					$http.post('/unread', data).success(function(res2){
+						if(res2.state == 'success'){
+							var realCount = 0;
+							for(var i = 0; i < res2.unread.length; i++){
+								if(!res2.unread[i].asure){
+									realCount++;
+								}
+							}
+							$rootScope.unreadCount = realCount;
+							res.user.unreadLength = realCount;
+							localStorage.setItem('User-Data', JSON.stringify(res.user));
+							$location.path('/');
+						}
+					});
 				}
 				else if(res.state == "failure"){
 					$scope.message = res.message;
@@ -204,8 +226,24 @@ app.controller('loginCtrl', function($scope, $http, $rootScope, $location){
 				$rootScope.current_user_sign = res.user.sign;
 				$rootScope.user_image_url = res.user.imageUrl;
 				$rootScope.showImage = true;
-				localStorage.setItem('User-Data', JSON.stringify(res.user));
-				$location.path('/');
+				//localStorage.setItem('User-Data', JSON.stringify(res.user));
+				var data = {
+					username: $scope.user.username
+				}
+				$http.post('/unread', data).success(function(res2){
+					if(res2.state == 'success'){
+						var realCount = 0;
+						for(var i = 0; i < res2.unread.length; i++){
+							if(!res2.unread[i].asure){
+								realCount++;
+							}
+						}
+						$rootScope.unreadCount = realCount;
+						res.user.unreadLength = realCount;
+						localStorage.setItem('User-Data', JSON.stringify(res.user));
+						$location.path('/');
+					}
+				});
 			}
 			else if(res.state == "failure"){
 				$scope.message = res.message;
@@ -246,6 +284,8 @@ app.controller('postTopicCtrl', function($scope, $http, $rootScope, $location){
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
     }
 	$scope.blocks = ['分享','问答','新闻','招聘'];
@@ -299,6 +339,8 @@ app.controller('showTopicCtrl', function ($http, $scope, $routeParams, $rootScop
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
     }
 
@@ -614,6 +656,8 @@ app.controller('modifyCtrl', function(Upload, $http, $scope, $rootScope, $locati
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
     }
     else {
@@ -661,6 +705,8 @@ app.controller('editCtrl', function ($scope, $location, $http, $rootScope) {
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
     }
     /*else{
@@ -725,6 +771,8 @@ app.controller('userInfoCtrl', function ($scope, $rootScope, $location, $http, $
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
     }
 	
@@ -896,7 +944,14 @@ app.controller('unreadCtrl', function($http, $scope, $rootScope, $location, $rou
         $rootScope.authed = true;
         $rootScope.showImage = true;
         $rootScope.user_image_url = $scope.user.imageUrl;
+        $rootScope.unreadCount = $scope.user.unreadLength;
+        $rootScope.showCount = $rootScope.unreadCount > 0? true:false;
         console.log($scope.user.imageUrl);
+    }
+
+    if (localStorage['User-Data'] == undefined){
+    	$location.path('/');
+    	return;
     }
 
 
@@ -905,8 +960,25 @@ app.controller('unreadCtrl', function($http, $scope, $rootScope, $location, $rou
 		username: $routeParams.username
 	}
 	$http.post('/unread', data).success(function(res){
-		console.log(res);
+		if(res.state == 'success'){
+			$scope.unreads = res.unread;
+			console.log($rootScope.unreadCount);
+		}
 	});
+
+	//确认某条未读消息后，将该条未读消息放到以往消息中
+	$scope.asure = function(unread){
+		console.log(unread);
+		$http.post('/asureUnread', unread).success(function(res){
+			console.log(res);
+			$scope.user.unreadLength--;
+			localStorage.setItem('User-Data', JSON.stringify($scope.user));
+			$rootScope.unreadCount--;
+			if($rootScope.unreadCount == 0){
+				$rootScope.showCount = false;
+			}
+		});
+	}
 });
 
 /*app.controller('mailAuthCtrl', function($scope, $http, $routeParams, $location) {

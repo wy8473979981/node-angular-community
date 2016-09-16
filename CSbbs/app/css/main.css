@@ -195,7 +195,7 @@ td {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1300px;
+    width: 1200px;
   }
 }
 .outForm {
@@ -213,6 +213,25 @@ td {
 }
 .welcome {
 	color: #002f93;
+}
+/*.unreadUl {
+	list-style: none;
+	padding-left: 0;
+}*/
+.unreadThead {
+	color: #80BD01;
+}
+.unreadTrow {
+	font-size: 14px;
+}
+.unreadCount {
+	display: inline-block;
+	text-align: center;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	border-radius: 9px;
+	background-color: #80BD01;
 }
 /*.srcCode {
 	font-size: 13px;

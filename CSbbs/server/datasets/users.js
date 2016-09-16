@@ -10,6 +10,8 @@ module.exports = mongoose.model('User', {
 	unread: [{
 		commentUser: String,
 		topicId: String,
+		topicTitle: String,
+		asure: Boolean,
 		commentDate: {
 			type: Date
 		}
