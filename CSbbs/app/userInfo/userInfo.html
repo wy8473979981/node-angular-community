@@ -25,11 +25,11 @@
 	<div class="withPadding">
 		<h4 class="userInfoH">个人信息</h4>
 		<hr class="userInfoHr">
-		<img ng-src="{{theUser.imageUrl}}" width="40" height="40">&nbsp;{{theUser.username}}
+		<img ng-src="{{theUser.imageUrl}}" width="40" height="40">&nbsp;<span ng-bind="theUser.username"></span>
 		<br><br>
-		<span class="prCount">发表话题个数: {{postCount}}</span>
+		<span class="prCount">发表话题个数: <span ng-bind="postCount"></span></span>
 		<br><br>
-		<span class="prCount">回复话题个数: {{replyCount}}</span>
+		<span class="prCount">回复话题个数: <span ng-bind="replyCount"></span></span>
 		<br><br>
 		<span class="prCount">加入CSbbs时间: {{theUser.signDate | date:"h:mma 'on' MMM d, y"}}</span>
 		<br><br>
@@ -46,7 +46,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="postTopic in postTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img ng-src="{{postTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{postTopic.comment.length}}</span>&nbsp;/<span class="pv">{{postTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{postTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{postTopic._id}}">{{postTopic.title}}</a><small class="floatRight mainDValue"><img ng-src="{{postTopic.finalCommenterImg}}" width="20" height="20" ng-show="postTopic.showFinalImg">&nbsp;&nbsp;&nbsp;{{postTopic.timeDValue}}</small></td>
+					<td><img ng-src="{{postTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="postTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="postTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="postTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{postTopic._id}}"><span ng-bind="postTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{postTopic.finalCommenterImg}}" width="20" height="20" ng-show="postTopic.showFinalImg">&nbsp;&nbsp;&nbsp;<span ng-bind="postTopic.timeDValue"></span></small></td>
 				</tr>
 			</tbody>
 		</table>
@@ -63,7 +63,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="replyTopic in replyTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img ng-src="{{replyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{replyTopic.comment.length}}</span>&nbsp;/<span class="pv">{{replyTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{replyTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{replyTopic._id}}">{{replyTopic.title}}</a><small class="floatRight mainDValue"><img ng-src="{{replyTopic.finalCommenterImg}}" width="20" height="20" ng-show="replyTopic.showFinalImg">&nbsp;&nbsp;{{replyTopic.timeDValue}}</small></td>
+					<td><img ng-src="{{replyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="replyTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="replyTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="replyTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{replyTopic._id}}"><span ng-bind="replyTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{replyTopic.finalCommenterImg}}" width="20" height="20" ng-show="replyTopic.showFinalImg">&nbsp;&nbsp;<span ng-bind="replyTopic.timeDValue"></span></small></td>
 				</tr>
 			</tbody>
 		</table>
@@ -80,7 +80,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="collTopic in collTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img ng-src="{{collTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{collTopic.comment.length}}</span>&nbsp;/<span class="pv">{{collTopic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{collTopic.block}}</span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{collTopic._id}}">{{collTopic.title}}</a><small class="floatRight mainDValue"><img ng-src="{{collTopic.finalCommenterImg}}" width="20" height="20" ng-show="collTopic.showFinalImg">&nbsp;&nbsp;{{collTopic.timeDValue}}</small></td>
+					<td><img ng-src="{{collTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="collTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="collTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="collTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{collTopic._id}}"><span ng-bind="collTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{collTopic.finalCommenterImg}}" width="20" height="20" ng-show="collTopic.showFinalImg">&nbsp;&nbsp;<span ng-bind="collTopic.timeDValue"></span></small></td>
 				</tr>
 			</tbody>
 		</table>
@@ -90,9 +90,9 @@
 	<div class="col-sm-12 col-sm-offset-0 personalInfo">
 		<div class="marginTB">
 			<p>个人信息:</p>
-			<a href="#/userInfo?username={{theUser.username}}"><img ng-src="{{theUser.imageUrl}}" width="40" height="40"></a>{{theUser.username}}
+			<a href="#/userInfo?username={{theUser.username}}"><img ng-src="{{theUser.imageUrl}}" width="40" height="40"></a><span ng-bind="theUser.username"></span>
 			<br><br>
-			<span>{{theUser.sign}}</span>
+			<span ng-bind="theUser.sign"></span>
 			<!--<a href="#/postTopic"><button class="btn btn-warning postTopicBtn">发布话题</button></a>-->
 			<br>
 		</div>

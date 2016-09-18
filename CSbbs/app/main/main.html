@@ -7,7 +7,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="topic in topics | orderBy:'finalDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-				<td><img ng-src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength">{{topic.comment.length}}</span>&nbsp;/<span class="pv">{{topic.pv}}</span>&nbsp;&nbsp;&nbsp;<span class="topicBlock">{{topic.block}}</span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}">{{topic.title}}</a><small class="floatRight mainDValue"><img ng-src="{{topic.finalCommenterImg}}" width="20" height="20" ng-show="topic.showFinalImg">&nbsp;&nbsp;&nbsp;{{topic.timeDValue}}</small></td>
+				<td><img ng-src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="topic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="topic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="topic.block"></span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}"><span ng-bind="topic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{topic.finalCommenterImg}}" width="20" height="20" ng-show="topic.showFinalImg">&nbsp;&nbsp;&nbsp;<span ng-bind="topic.timeDValue"></span></small></td>
 			</tr>
 		</tbody>
 	</table>
@@ -21,9 +21,9 @@
 		</div>
 		<div ng-show="authed" class="marginTB">
 			<p>个人信息:</p>
-			<a href="#/userInfo?username={{current_user}}"><img src="{{user_image_url}}" ng-show="showImage" width="40" height="40"></a>{{current_user}}
+			<a href="#/userInfo?username={{current_user}}"><img src="{{user_image_url}}" ng-show="showImage" width="40" height="40"></a><span ng-bind="current_user"></span>
 			<br><br>
-			<span>{{current_user_sign}}</span>
+			<span ng-bind="current_user_sign"></span>
 			<br>
 			<a href="#/postTopic"><button class="btn btn-warning postTopicBtn">发布话题</button></a>
 			<br>
@@ -36,7 +36,7 @@
 		<h5>无人回复的问题</h5>
 		<hr class="addComment">
 		<ul class="noStyle">
-			<li ng-repeat="noReplyTopic in noReplyTopics"><a href="#/showTopic?topicId={{noReplyTopic._id}}" class="noReplyTopic">•{{noReplyTopic.title}}</a></li>
+			<li ng-repeat="noReplyTopic in noReplyTopics"><a href="#/showTopic?topicId={{noReplyTopic._id}}" class="noReplyTopic">•<span ng-bind="noReplyTopic.title"></span></a></li>
 		</ul>
 	</div>
 	<div class="col-sm-12 col-sm-offset-0">

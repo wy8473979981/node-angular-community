@@ -2,13 +2,13 @@
     <div>
         <span>请选择板块</span>
         <select name="models" class="models" id="theTopics">
-            <option ng-repeat="block in blocks">{{block}}</option>
+            <option ng-repeat="block in blocks"><span ng-bind="block"></span></option>
         </select>
     </div>
     <br>
     <form>
         <div class="form-group">
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="在这里写下标题" ng-model="title" maxlength="40"><span class="text-warning">{{titleNotWriten}}</span>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="在这里写下标题" ng-model="title" maxlength="40"><span class="text-warning" ng-bind="titleNotWriten"></span>
         </div>
     </form>
     
@@ -33,7 +33,7 @@
         </div>-->
 
     <!--<textarea id="content" rows="20" onkeyup="compile()" class="topic" ng-model="content"></textarea>-->
-    <textarea id="content" rows="20" onkeyup="compile()" class="topic" ng-model="content"></textarea><span class="text-warning">{{contentNotWriten}}</span>
+    <textarea id="content" rows="20" onkeyup="compile()" class="topic" ng-model="content"></textarea><span class="text-warning" ng-bind="contentNotWriten"></span>
     <br>
     <br>
     <div class="form-group">

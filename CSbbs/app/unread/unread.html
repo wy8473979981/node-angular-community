@@ -9,7 +9,7 @@
 			<tbody>
 				<tr ng-repeat="unread in unreads | orderBy:'commentDate':true" ng-class-odd="'odd'" ng-class-even="'odd'" ng-hide="unread.asure">
 					<td>
-						<a href="#/userInfo?username={{unread.commentUser}}">{{unread.commentUser}}</a>&nbsp;回复了你的话题&nbsp;<a href="#/showTopic?topicId={{unread.topicId}}" ng-click="asure(unread)">{{unread.topicTitle}}</a>
+						<a href="#/userInfo?username={{unread.commentUser}}"><span ng-bind="unread.commentUser"></span></a>&nbsp;在话题&nbsp;<a href="#/showTopic?topicId={{unread.topicId}}" ng-click="asure(unread)"><span ng-bind="unread.topicTitle"></span></a>&nbsp;中回复了你
 					</td>
 				</tr>
 			</tbody>
@@ -36,7 +36,7 @@
 			<tbody>
 				<tr ng-repeat="unread in unreads | orderBy:'commentDate':true" ng-class-odd="'odd'" ng-class-even="'odd'" ng-show="unread.asure" class="unreadTrow">
 					<td>
-						<a href="#/userInfo?username={{unread.commentUser}}">{{unread.commentUser}}</a>&nbsp;回复了你的话题&nbsp;<a href="#/showTopic?topicId={{unread.topicId}}" ng-click="asure(unread)">{{unread.topicTitle}}</a>
+						<a href="#/userInfo?username={{unread.commentUser}}"><span ng-bind="unread.commentUser"></span></a>&nbsp;在话题&nbsp;<a href="#/showTopic?topicId={{unread.topicId}}" ng-click="asure(unread)"><span ng-bind="unread.topicTitle"></span></a>&nbsp;中回复了你
 					</td>
 				</tr>
 			</tbody>
@@ -55,9 +55,9 @@
 	<div class="col-sm-12 col-sm-offset-0 personalInfo">
 		<div class="marginTB">
 			<p>个人信息:</p>
-			<a href="#/userInfo?username={{current_user}}"><img ng-src="{{user_image_url}}" width="40" height="40"></a>{{current_user}}
+			<a href="#/userInfo?username={{current_user}}"><img ng-src="{{user_image_url}}" width="40" height="40"></a><span ng-bind="current_user"></span>
 			<br><br>
-			<span>{{current_user_sign}}</span>
+			<span ng-bind="current_user_sign"></span>
 			<br>
 		</div>
 	</div>

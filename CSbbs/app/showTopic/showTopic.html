@@ -5,8 +5,8 @@
 		<small class="floatRight" ng-show="canEdit">&nbsp;&nbsp;&nbsp;</small>
 		<!--<button class="floatRight btn btn-success" ng-show="canEdit" ng-click="delete()">删除</button>-->
 		<span class="glyphicon glyphicon-trash floatRight deleteBtn" ng-show="canEdit" ng-click="delete()"></span>
-		<h2 class="wordWrap">{{topic.title}}</h2>
-		<p class="showTopicInfo">•作者:&nbsp;{{topic.user}}&nbsp;&nbsp;&nbsp;&nbsp;•{{topic.pv}}次浏览&nbsp;&nbsp;&nbsp;&nbsp;•发布于:&nbsp;{{topic.timeDValue}}&nbsp;&nbsp;&nbsp;&nbsp;•最后回复来自:&nbsp;{{finalCommenter}}&nbsp;&nbsp;{{finalCommentDate}}
+		<h2 class="wordWrap" ng-bind="topic.title"></h2>
+		<p class="showTopicInfo">•作者:&nbsp;<span ng-bind="topic.user"></span>&nbsp;&nbsp;&nbsp;&nbsp;•<span ng-bind="topic.pv"></span>&nbsp;&nbsp;&nbsp;&nbsp;•发布于:&nbsp;<span ng-bind="topic.timeDValue"></span>&nbsp;&nbsp;&nbsp;&nbsp;•最后回复来自:&nbsp;<span ng-bind="finalCommenter"></span>&nbsp;&nbsp;<span ng-bind="finalCommentDate"></span>
 			<button class="floatRight btn btn-success collectBtn" ng-click="collect()">收藏</button>
 		</p>
 		<hr>
@@ -20,17 +20,17 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>{{commentCounts}}条回复</th>
+					<th><span ng-bind="commentCounts"></span>条回复</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="gottenComment in gottenComments | orderBy: 'commentDate'" ng-class-odd="'odd'" ng-class-even="'odd'">
-					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img ng-src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small>{{gottenComment.commentUser}}</small>&nbsp;•<small>{{gottenComment.timeDValue}}</small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{gottenComment.commentAt}}"><span class="atUser" ng-show="gottenComment.atUser">@{{gottenComment.commentAt}}</span></a>&nbsp;{{gottenComment.commentInner}}</p>
+					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img ng-src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small><span ng-bind="gottenComment.commentUser"></span></small>&nbsp;•<small><span ng-bind="gottenComment.timeDValue"></span></small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{gottenComment.commentAt}}"><span class="atUser" ng-show="gottenComment.atUser">@<span ng-bind="gottenComment.commentAt"></span></span></a>&nbsp;<span ng-bind="gottenComment.commentInner"></span></p>
 					<div class="commentInner" ng-show="gottenComment.showit">
 						<h5>添加回复</h5>
 						<hr class="addReply">
 						<textarea id="itBotherMe" rows="10" class="topic" ng-model="hehe.reply"></textarea>
-						<span class="text-warning">{{replyNotWritten}}</span>
+						<span class="text-warning" ng-bind="replyNotWritten"></span>
 						<div class="form-group">
 				            <button type="submit" class="btn btn-primary" ng-click="replyCommenter(gottenComment)">回复</button>
 				      	</div>
@@ -45,7 +45,7 @@
 		<!--<div class="addComment">添加回复</div>-->
 		<h5>添加回复</h5>
 		<hr class="addComment">
-		<textarea id="content" rows="10" class="topic" ng-model="comment"></textarea><span class="text-warning">{{commentNotWritten}}</span>
+		<textarea id="content" rows="10" class="topic" ng-model="comment"></textarea><span class="text-warning" ng-bind="commentNotWritten"></span>
 		<div class="form-group">
             <button type="submit" class="btn btn-primary" ng-click="replyAuthor()">回复</button>
       	</div>
@@ -55,9 +55,9 @@
 	<div class="col-sm-12 col-sm-offset-0 personalInfo">
 		<div class="marginTB">
 			<p>作者:</p>
-			<a href="#/userInfo?username={{topic.user}}"><img ng-src="{{topic.userImage}}" width="40" height="40"></a>{{topic.user}}
+			<a href="#/userInfo?username={{topic.user}}"><img ng-src="{{topic.userImage}}" width="40" height="40"></a><span ng-bind="topic.user"></span>
 			<br><br>
-			<span>{{topic.userSign}}</span>
+			<span ng-bind="topic.userSign"></span>
 		</div>
 	</div>
 	<div class="col-sm-12 col-sm-offset-0">
@@ -67,7 +67,7 @@
 		<h5>无人回复的问题</h5>
 		<hr class="addComment">
 		<ul class="noStyle">
-			<li ng-repeat="noReplyTopic in noReplyTopics"><a href="#/showTopic?topicId={{noReplyTopic._id}}" class="noReplyTopic">•{{noReplyTopic.title}}</a></li>
+			<li ng-repeat="noReplyTopic in noReplyTopics"><a href="#/showTopic?topicId={{noReplyTopic._id}}" class="noReplyTopic">•<span ng-bind="noReplyTopic.title"></span></a></li>
 		</ul>
 	</div>
 	<div class="col-sm-12 col-sm-offset-0">

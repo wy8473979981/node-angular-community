@@ -44,7 +44,7 @@
 	        <li ng-hide="authed"><a href="#/register">注册</a></li>
 	        <li ng-hide="authed"><a href="#/login">登录</a></li>
 	        <li><a href="#">关于我们</a></li>
-	        <li ng-show="authed"><a href="#">当前:{{current_user}}</a></li>
+	        <li ng-show="authed"><a href="#">当前:<span ng-bind="current_user"></span></a></li>
 	        <li ng-show="authed"><a href="#/unread?username={{current_user}}"><span ng-show="showCount" class="unreadCount">{{unreadCount}}</span>未读消息</a></li>
 	        <li ng-show="authed"><a href="#/modify">用户</a></li>
 	        <li ng-show="authed"><a href="#" ng-click="logout()">登出</a></li>
