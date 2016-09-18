@@ -1,5 +1,5 @@
 # node-angular-blog
-##基于MongoDB+AngularJS+ExpressJS做的一个简单的社区站点  
+##基于MongoDB+AngularJS+ExpressJS+Node.js做的一个简单的社区站点  
 
 ![pic1](http://f.hiphotos.baidu.com/image/pic/item/024f78f0f736afc3641ed9f9bb19ebc4b745121f.jpg)
 ![pic2](http://d.hiphotos.baidu.com/image/pic/item/8718367adab44aed051b5778bb1c8701a08bfbd1.jpg)
