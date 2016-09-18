@@ -1,4 +1,10 @@
 # node-angular-blog
+##基于MongoDB+AngularJS+ExpressJS做的一个简单的社区站点  
+
+![pic1](http://f.hiphotos.baidu.com/image/pic/item/024f78f0f736afc3641ed9f9bb19ebc4b745121f.jpg)
+![pic2](http://d.hiphotos.baidu.com/image/pic/item/8718367adab44aed051b5778bb1c8701a08bfbd1.jpg)
+![pic3](http://d.hiphotos.baidu.com/image/pic/item/a044ad345982b2b75b13d05839adcbef77099b9a.jpg)
+
 ###app目录下：
 &nbsp;&nbsp;&nbsp;css中存放css文件  
 &nbsp;&nbsp;&nbsp;images中存放图片资源  
