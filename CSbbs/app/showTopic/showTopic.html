@@ -6,7 +6,7 @@
 		<!--<button class="floatRight btn btn-success" ng-show="canEdit" ng-click="delete()">删除</button>-->
 		<span class="glyphicon glyphicon-trash floatRight deleteBtn" ng-show="canEdit" ng-click="delete()"></span>
 		<h2 class="wordWrap" ng-bind="topic.title"></h2>
-		<p class="showTopicInfo">•作者:&nbsp;<span ng-bind="topic.user"></span>&nbsp;&nbsp;&nbsp;&nbsp;•<span ng-bind="topic.pv"></span>&nbsp;&nbsp;&nbsp;&nbsp;•发布于:&nbsp;<span ng-bind="topic.timeDValue"></span>&nbsp;&nbsp;&nbsp;&nbsp;•最后回复来自:&nbsp;<span ng-bind="finalCommenter"></span>&nbsp;&nbsp;<span ng-bind="finalCommentDate"></span>
+		<p class="showTopicInfo">•作者:&nbsp;<span ng-bind="topic.user"></span>&nbsp;&nbsp;&nbsp;&nbsp;•<span ng-bind="topic.pv"></span>次浏览&nbsp;&nbsp;&nbsp;&nbsp;•发布于:&nbsp;<span ng-bind="topic.timeDValue"></span>&nbsp;&nbsp;&nbsp;&nbsp;•最后回复来自:&nbsp;<span ng-bind="finalCommenter"></span>&nbsp;&nbsp;<span ng-bind="finalCommentDate"></span>
 			<button class="floatRight btn btn-success collectBtn" ng-click="collect()">收藏</button>
 		</p>
 		<hr>
