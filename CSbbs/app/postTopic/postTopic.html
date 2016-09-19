@@ -2,7 +2,7 @@
     <div>
         <span>请选择板块</span>
         <select name="models" class="models" id="theTopics">
-            <option ng-repeat="block in blocks"><span ng-bind="block"></span></option>
+            <option ng-repeat="block in blocks"><span>{{block}}</span></option>
         </select>
     </div>
     <br>
@@ -43,7 +43,7 @@
       </div>
     <div id="result"></div>
 </div>
-<div class="col-sm-2">
+<div class="col-sm-2 sidebar">
     <div class="col-sm-12 col-sm-offset-0 personalInfo">
         <div>
             <p style="color: #faa">Markdown语法参考</p>

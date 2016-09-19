@@ -233,6 +233,38 @@ td {
 	border-radius: 9px;
 	background-color: #80BD01;
 }
+@media (max-width: 400px){
+	.container {
+		padding: 0;
+		margin: 0;
+	}
+	.navbar {
+		margin-bottom: 0;
+	}
+	.articles {
+		padding: 0;
+	}
+}
+@media (max-width: 787px){
+	.noStyleUl {
+		height: 50px;
+		margin-bottom: 2px;
+	}
+	.noStyleUl li {
+		width: 25%;
+		float: left;
+	}
+	.friendlyLink {
+		width: 100%;
+	}
+	.sidebar {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.mid {
+		height: 2px;
+	}
+}
 /*.srcCode {
 	font-size: 13px;
 	color: #000;
