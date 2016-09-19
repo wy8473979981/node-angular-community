@@ -6,7 +6,8 @@
 ![pic3](http://d.hiphotos.baidu.com/image/pic/item/a044ad345982b2b75b13d05839adcbef77099b9a.jpg)
 
 ##移动端样子有点丑
-![pic4](http://b.hiphotos.baidu.com/image/pic/item/00e93901213fb80e1a6b41493ed12f2eb83894f1.jpg)
+![pic4](http://b.hiphotos.baidu.com/image/pic/item/00e93901213fb80e1a6b41493ed12f2eb83894f1.jpg)  
+##个人信息页
 ![pic5](http://e.hiphotos.baidu.com/image/pic/item/2fdda3cc7cd98d105dc82faf293fb80e7bec900b.jpg)
 
 ###app目录下：
