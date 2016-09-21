@@ -233,7 +233,7 @@ td {
 	border-radius: 9px;
 	background-color: #80BD01;
 }
-@media (max-width: 400px){
+@media (max-width: 500px){
 	.container {
 		padding: 0;
 		margin: 0;
@@ -264,6 +264,12 @@ td {
 	.mid {
 		height: 2px;
 	}
+}
+.forPagination {
+	margin-bottom: 0;
+}
+.noHrefA {
+	cursor: pointer;
 }
 /*.srcCode {
 	font-size: 13px;

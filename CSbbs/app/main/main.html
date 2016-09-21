@@ -1,16 +1,23 @@
 <div class="col-sm-10 articles">
-	<table class="table">
+	<table class="table forPagination">
 		<thead>
 			<tr>
 				<th>header</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="topic in topics | orderBy:'finalDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-				<td><img ng-src="{{topic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="topic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="topic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="topic.block"></span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{topic._id}}"><span ng-bind="topic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{topic.finalCommenterImg}}" width="20" height="20" ng-show="topic.showFinalImg">&nbsp;&nbsp;&nbsp;<span ng-bind="topic.timeDValue"></span></small></td>
+			<tr ng-repeat="currentPageTopic in currentPageTopics" ng-class-odd="'odd'" ng-class-even="'even'">
+				<td><img ng-src="{{currentPageTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="currentPageTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="currentPageTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="currentPageTopic.block"></span>&nbsp;&nbsp;<a href="#/showTopic?topicId={{currentPageTopic._id}}"><span ng-bind="currentPageTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{currentPageTopic.finalCommenterImg}}" width="20" height="20" ng-show="currentPageTopic.showFinalImg">&nbsp;&nbsp;&nbsp;<span ng-bind="currentPageTopic.timeDValue"></span></small></td>
 			</tr>
 		</tbody>
 	</table>
+	<nav>
+		<ul class="pagination">
+		    <li><a class="noHrefA" ng-click="getPage(1)">&laquo;</a></li>
+		    <li><a class="noHrefA" ng-repeat="currentPage in currentPages" ng-click="getPage(currentPage)"><span ng-bind="currentPage"></span></a></li>
+		    <li><a class="noHrefA" ng-click="getPage(pageLength)">&raquo;</a></li>
+		</ul>
+	</nav>
 </div>
 <div class="col-sm-2 sidebar">
 	<div class="col-sm-12 col-sm-offset-0 personalInfo">

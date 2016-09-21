@@ -53,6 +53,7 @@ app.config(function($routeProvider){
 });
 
 
+
 /*app.controller('mailAuthCtrl', function($scope, $http, $routeParams, $location) {
 	console.log($routeParams.code);
 });*/
