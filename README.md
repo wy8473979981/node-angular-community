@@ -1,8 +1,8 @@
 # node-angular-blog
 ##基于MongoDB+AngularJS+ExpressJS+Node.js做的一个简单的社区站点  
 
-![pic1](http://f.hiphotos.baidu.com/image/pic/item/6a63f6246b600c334a239f4c124c510fd8f9a1d8.jpg)
-![pic2](http://d.hiphotos.baidu.com/image/pic/item/8718367adab44aed051b5778bb1c8701a08bfbd1.jpg)
+![pic1](http://a.hiphotos.baidu.com/image/pic/item/5d6034a85edf8db1eb0d3fe00123dd54564e7416.jpg)
+![pic2](http://d.hiphotos.baidu.com/image/pic/item/72f082025aafa40f38c68d59a364034f78f01935.jpg)
 ![pic3](http://d.hiphotos.baidu.com/image/pic/item/6609c93d70cf3bc74cbc1d6fd900baa1cc112af1.jpg)
 
 ##移动端样子有点丑
