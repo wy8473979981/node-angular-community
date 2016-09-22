@@ -17,6 +17,10 @@
 &nbsp;&nbsp;&nbsp;edit中存放重新编辑话题的视图edit.html以及对应的控制器edit.js（只有作者可以重新编辑话题）  
 &nbsp;&nbsp;&nbsp;login中存放登录的视图login.html以及对应的控制器login.js  
 &nbsp;&nbsp;&nbsp;main中存放首页视图main.html以及main.js  
+&nbsp;&nbsp;&nbsp;employ中存放首页板块为招聘的所有话题的视图employ.html以及employ.js  
+&nbsp;&nbsp;&nbsp;news中存放首页板块为新闻的所有话题的视图news.html以及news.js  
+&nbsp;&nbsp;&nbsp;qanda中存放首页板块为问答的所有话题的视图qanda.html以及qanda.js  
+&nbsp;&nbsp;&nbsp;share中存放首页板块为分享的所有话题的视图share.html以及share.js  
 &nbsp;&nbsp;&nbsp;modify中存放修改个人信息视图modify.html以及modify.js  
 &nbsp;&nbsp;&nbsp;postTopic中存放发表话题视图postTopic.html以及postTopic.js  
 &nbsp;&nbsp;&nbsp;register中存放注册视图register.html以及register.js  
