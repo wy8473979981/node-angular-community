@@ -118,9 +118,8 @@ angular.module('CSbbs').controller('mainCtrl', function($scope, $http, $rootScop
 			console.log($rootScope.topics);
 
 
-			//从这里到195行是分页处理
 			//分页处理
-			//每页设置显示话题数为25条
+			//每页设置显示话题数为20条
 			//currentPages为当前页的数组，第一页第二页第三页...
 			$scope.currentPages = [];
 			if(($rootScope.topics.length)%25 == 0){

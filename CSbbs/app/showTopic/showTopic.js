@@ -110,6 +110,82 @@ angular.module('CSbbs').controller('showTopicCtrl', function ($http, $scope, $ro
     $scope.comment = '';
     $scope.commentNotWritten = '';
     $scope.gottenComments = $scope.topic.comment;
+
+    //分页处理
+	//每页设置显示数为20条
+	//currentPages为当前页的数组，第一页第二页第三页...
+	$scope.currentPages = [];
+	if(($scope.gottenComments.length)%25 == 0){
+		$scope.pageLength = parseInt(($scope.gottenComments.length)/25);
+	}
+	else{
+		$scope.pageLength = parseInt(($scope.gottenComments.length)/25) + 1;
+	}
+	if($scope.pageLength <= 6){
+		for(var i = 0; i < $scope.pageLength; i++){
+			$scope.currentPages.push(i + 1);
+			//console.log($scope.currentPages[i]);
+		}
+	}
+	else{
+		for(var i = 0; i < 6; i++){
+			if(i != 5){
+				$scope.currentPages.push(i + 1);
+			}
+			else{
+				$scope.currentPages.push('...');
+			}
+		}
+	}
+	//改变currentPages数组
+	$scope.setCurrentPages = function(currentPage){
+		if(currentPage == '...' || currentPage == '..'){
+		}
+		if(currentPage < 5){
+			$scope.currentPages.splice(0, 6, 1, 2, 3, 4, 5, '...');
+		}
+		else if(currentPage > $scope.pageLength - 4){
+			$scope.currentPages.splice(0, 6, '..', $scope.pageLength - 4, $scope.pageLength - 3, $scope.pageLength - 2, $scope.pageLength - 1, $scope.pageLength);
+		}
+		else{
+			if($scope.currentPages[$scope.currentPages.indexOf(currentPage) - 1] == '..'){
+				if(currentPage == 5){
+					$scope.currentPages.splice(0, 6, 1, 2, 3, 4, 5, '...');
+				}
+				else{
+					$scope.currentPages.splice(0, 6, '..', currentPage - 3, currentPage - 2, currentPage - 1, currentPage, '...');
+				}
+			}
+			else if($scope.currentPages[$scope.currentPages.indexOf(currentPage) + 1] == '...'){
+				if(currentPage >= $scope.pageLength - 4){
+					$scope.currentPages.splice(0, 6, '..', $scope.pageLength - 4, $scope.pageLength - 3, $scope.pageLength - 2, $scope.pageLength - 1, $scope.pageLength);
+				}
+				else{
+					$scope.currentPages.splice(0, 6, '..', currentPage, currentPage + 1, currentPage + 2, currentPage + 3, '...');
+				}
+			}
+		}
+	}
+	//获取当前页数据
+	$scope.getPage = function(currentPage){
+		if($scope.pageLength > 6){
+			$scope.setCurrentPages(currentPage);
+		}
+		//console.log($scope.currentPages);
+		//console.log('共' + pageLength + '页');
+		//console.log('当前为第' + currentPage + '页');
+		//若非最后一页
+		if(currentPage != $scope.pageLength){
+			$scope.currentPageComments = $scope.gottenComments.slice(25 * (currentPage-1), 25 * currentPage);
+		}
+		//最后一页
+		else{
+			$scope.currentPageComments = $scope.gottenComments.slice(25 * (currentPage-1));
+		}
+		console.log($scope.currentPageComments);
+	}
+	$scope.getPage(1);
+
     for(var i = 0 ; i < $scope.topic.comment.length; i++){
     	$scope.gottenComments[i].showit = false;
     	if($scope.gottenComments[i].commentAt == '' || $scope.gottenComments[i].commentAt === undefined){

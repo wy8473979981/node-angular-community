@@ -45,11 +45,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="postTopic in postTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img ng-src="{{postTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="postTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="postTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="postTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{postTopic._id}}"><span ng-bind="postTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{postTopic.finalCommenterImg}}" width="20" height="20" ng-show="postTopic.showFinalImg">&nbsp;&nbsp;&nbsp;<span ng-bind="postTopic.timeDValue"></span></small></td>
+				<tr ng-repeat="currentPostTopic in currentPostTopics" ng-class-odd="'odd'" ng-class-even="'even'">
+					<td><img ng-src="{{currentPostTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="currentPostTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="currentPostTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="currentPostTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{currentPostTopic._id}}"><span ng-bind="currentPostTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{currentPostTopic.finalCommenterImg}}" width="20" height="20" ng-show="currentPostTopic.showFinalImg">&nbsp;&nbsp;&nbsp;<span ng-bind="currentPostTopic.timeDValue"></span></small></td>
 				</tr>
 			</tbody>
 		</table>
+		<nav>
+			<ul class="pagination">
+			    <li><a class="noHrefA" ng-click="getPage(1)">&laquo;</a></li>
+			    <li><a class="noHrefA" ng-repeat="currentPage in currentPages1" ng-click="getPage(currentPage)"><span ng-bind="currentPage"></span></a></li>
+			    <li><a class="noHrefA" ng-click="getPage(pageLength1)">&raquo;</a></li>
+			</ul>
+		</nav>
 	</div>
 	<div class="mid">
 		
@@ -62,11 +69,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="replyTopic in replyTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img ng-src="{{replyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="replyTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="replyTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="replyTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{replyTopic._id}}"><span ng-bind="replyTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{replyTopic.finalCommenterImg}}" width="20" height="20" ng-show="replyTopic.showFinalImg">&nbsp;&nbsp;<span ng-bind="replyTopic.timeDValue"></span></small></td>
+				<tr ng-repeat="currentReplyTopic in currentReplyTopics" ng-class-odd="'odd'" ng-class-even="'even'">
+					<td><img ng-src="{{currentReplyTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="currentReplyTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="currentReplyTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="currentReplyTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{currentReplyTopic._id}}"><span ng-bind="currentReplyTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{currentReplyTopic.finalCommenterImg}}" width="20" height="20" ng-show="currentReplyTopic.showFinalImg">&nbsp;&nbsp;<span ng-bind="currentReplyTopic.timeDValue"></span></small></td>
 				</tr>
 			</tbody>
 		</table>
+		<nav>
+			<ul class="pagination">
+			    <li><a class="noHrefA" ng-click="getPage(1)">&laquo;</a></li>
+			    <li><a class="noHrefA" ng-repeat="currentPage in currentPages2" ng-click="getPage(currentPage)"><span ng-bind="currentPage"></span></a></li>
+			    <li><a class="noHrefA" ng-click="getPage(pageLength2)">&raquo;</a></li>
+			</ul>
+		</nav>
 	</div>
 	<div class="mid" ng-show="showColl">
 		
@@ -79,11 +93,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="collTopic in collTopics | orderBy: 'oldDate':true" ng-class-odd="'odd'" ng-class-even="'even'">
-					<td><img ng-src="{{collTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="collTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="collTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="collTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{collTopic._id}}"><span ng-bind="collTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{collTopic.finalCommenterImg}}" width="20" height="20" ng-show="collTopic.showFinalImg">&nbsp;&nbsp;<span ng-bind="collTopic.timeDValue"></span></small></td>
+				<tr ng-repeat="currentCollTopic in currentCollTopics" ng-class-odd="'odd'" ng-class-even="'even'">
+					<td><img ng-src="{{currentCollTopic.userImage}}" width="30" height="30">&nbsp;&nbsp;<span class="commentLength" ng-bind="currentCollTopic.comment.length"></span>&nbsp;/<span class="pv" ng-bind="currentCollTopic.pv"></span>&nbsp;&nbsp;&nbsp;<span class="topicBlock" ng-bind="currentCollTopic.block"></span>&nbsp;&nbsp;&nbsp;<a href="#/showTopic?topicId={{currentCollTopic._id}}"><span ng-bind="currentCollTopic.title"></span></a><small class="floatRight mainDValue"><img ng-src="{{currentCollTopic.finalCommenterImg}}" width="20" height="20" ng-show="currentCollTopic.showFinalImg">&nbsp;&nbsp;<span ng-bind="currentCollTopic.timeDValue"></span></small></td>
 				</tr>
 			</tbody>
 		</table>
+		<nav>
+			<ul class="pagination">
+			    <li><a class="noHrefA" ng-click="getPage(1)">&laquo;</a></li>
+			    <li><a class="noHrefA" ng-repeat="currentPage in currentPages3" ng-click="getPage(currentPage)"><span ng-bind="currentPage"></span></a></li>
+			    <li><a class="noHrefA" ng-click="getPage(pageLength3)">&raquo;</a></li>
+			</ul>
+		</nav>
 	</div>
 </div>
 <div class="col-sm-2 sidebar">

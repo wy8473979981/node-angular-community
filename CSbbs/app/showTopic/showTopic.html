@@ -24,21 +24,28 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="gottenComment in gottenComments | orderBy: 'commentDate'" ng-class-odd="'odd'" ng-class-even="'odd'">
-					<td><a href="#/userInfo?username={{gottenComment.commentUser}}"><img ng-src="{{gottenComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small><span ng-bind="gottenComment.commentUser"></span></small>&nbsp;•<small><span ng-bind="gottenComment.timeDValue"></span></small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(gottenComment)"></span></small><p id="{{gottenComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{gottenComment.commentAt}}"><span class="atUser" ng-show="gottenComment.atUser">@<span ng-bind="gottenComment.commentAt"></span></span></a>&nbsp;<span ng-bind="gottenComment.commentInner"></span></p>
-					<div class="commentInner" ng-show="gottenComment.showit">
+				<tr ng-repeat="currentPageComment in currentPageComments" ng-class-odd="'odd'" ng-class-even="'odd'">
+					<td><a href="#/userInfo?username={{currentPageComment.commentUser}}"><img ng-src="{{currentPageComment.commentUserImage}}" width="30" height="30"></a>&nbsp;<small><span ng-bind="currentPageComment.commentUser"></span></small>&nbsp;•<small><span ng-bind="currentPageComment.timeDValue"></span></small><small class="floatRight"><!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="thumbsUp"></span>-->&nbsp;<span class="glyphicon glyphicon-share-alt" aria-hidden="true" id="reply" ng-click="showIt(currentPageComment)"></span></small><p id="{{currentPageComment.commentInner}}" class="commentInner"><a href="#/userInfo?username={{currentPageComment.commentAt}}"><span class="atUser" ng-show="currentPageComment.atUser">@<span ng-bind="currentPageComment.commentAt"></span></span></a>&nbsp;<span ng-bind="currentPageComment.commentInner"></span></p>
+					<div class="commentInner" ng-show="currentPageComment.showit">
 						<h5>添加回复</h5>
 						<hr class="addReply">
 						<textarea id="itBotherMe" rows="10" class="topic" ng-model="hehe.reply"></textarea>
 						<span class="text-warning" ng-bind="replyNotWritten"></span>
 						<div class="form-group">
-				            <button type="submit" class="btn btn-primary" ng-click="replyCommenter(gottenComment)">回复</button>
+				            <button type="submit" class="btn btn-primary" ng-click="replyCommenter(currentPageComment)">回复</button>
 				      	</div>
 					</div>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		<nav>
+			<ul class="pagination">
+			    <li><a class="noHrefA" ng-click="getPage(1)">&laquo;</a></li>
+			    <li><a class="noHrefA" ng-repeat="currentPage in currentPages" ng-click="getPage(currentPage)"><span ng-bind="currentPage"></span></a></li>
+			    <li><a class="noHrefA" ng-click="getPage(pageLength)">&raquo;</a></li>
+			</ul>
+		</nav>
 	</div>
 	<div class="mid"></div>
 	<div class="withPadding forComment" ng-show="authed">
