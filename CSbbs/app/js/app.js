@@ -49,6 +49,18 @@ app.config(function($routeProvider){
 	}).when('/unread', {
 		templateUrl: 'app/unread/unread.html',
 		controller: 'unreadCtrl'
+	}).when('/share', {
+		templateUrl: 'app/share/share.html',
+		controller: 'shareCtrl'
+	}).when('/qanda', {
+		templateUrl: 'app/qanda/qanda.html',
+		controller: 'qandaCtrl'
+	}).when('/employ', {
+		templateUrl: 'app/employ/employ.html',
+		controller: 'employCtrl'
+	}).when('/news', {
+		templateUrl: 'app/news/news.html',
+		controller: 'newsCtrl'
 	});
 });
 
